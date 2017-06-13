@@ -1,0 +1,8 @@
+# Convert virtual harddrive to qcow2
+Virtual Box to convert to qcow
+
+# Qemu
+qemu-img convert test.qcow2 -O raw test.img
+
+# Fiwalk .xml
+fiwalk -X0 <filename.img>

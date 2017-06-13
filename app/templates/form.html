@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>sherlock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style>
+      /*
+
+      body {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      }
+
+      .navbar {
+      margin-bottom: 5px;
+      }
+      */
+      html {
+      transform: scale(.75);
+      -webkit-transform: scale(.75);
+      -moz-transform: scale(.75);
+      -ms-transform: scale(.75);
+      -o-transform: scale(.75);
+      //width: 100%;
+      //height: 100%;
+      //margin: -25% -25%;
+      margin-top: -5%;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+	<h1>sherlock</h1>
+	<p>sherlock is a toolkit that allows for a digital forensic investigator to upload evidence for case to be analyzed using various computer science, math, and statistical based methods.</p>
+      </div>
+      <form action="." method="POST" enctype="multipart/form-data">
+	<input type="file" name="file" multiple>
+	<input type="submit">
+      </form>
+      <!-- <p>Try selecting more than one file when browsing for files.</p> -->
+      {% block content %}
+      {% endblock %}
+    </div>
+    <!--<script src="script.js"></script>-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+  </html>

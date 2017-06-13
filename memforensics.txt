@@ -1,0 +1,7 @@
+# How to retrieve memory dump with volatility
+vboxmanage debugvum <vmname> "IE8 - Win7" dumpvmcore --filename=<filename>
+
+
+# Volatility Commands
+volatility pslist --profile=Win7SP0x86 -f test.raw
+volatility netscan --profile=Win7SP0x86 -f test.raw

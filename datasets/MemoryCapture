@@ -1,0 +1,4 @@
+# While Machine is Running
+
+vboxmanage debugvm <vmname> dumpvmcore --filename=<filename>
+
