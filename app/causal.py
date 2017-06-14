@@ -37,16 +37,19 @@ def observe_evidence(filename):
         gvd.add_edge(node['Parent'], node['Child'])
 
     # Create folder for this case
-    FOLDER_NAME = filename.split(".")[0].encode("utf-8")
+    # FOLDER_NAME = filename.split(".")[0].encode("utf-8")
+    # subprocess.call(['mkdir', FOLDER_NAME])
+    pos = nx.spring_layout(dg)
+    nx.draw(dg,pos)
+    plt.savefig(filename + ".png", format="PNG")
     
-    # Run graph analysis
+    ''' # Run graph analysis
     # PageRank
     pr = nx.pagerank(dg)
     pr = sorted(pr.items(), key=operator.itemgetter(1), reverse=True)
     # HITS
     h,a = nx.hits(dg)
-    h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)
-    return dg
+    h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)'''
 
 def summary(graph):
     degr = []

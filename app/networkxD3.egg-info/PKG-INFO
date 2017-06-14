@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: networkxD3
+Version: 0.20
+Summary: D3 JavaScript networkx Graphs
+Home-page: https://github.com/Jverma/NetworkxD3
+Author: Janu Verma
+Author-email: jv367@cornell.edu
+License: MIT
+Description: UNKNOWN
+Platform: Linux
+Platform: Mac OSX
+Platform: Windows
+Platform: Unix
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Progamming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

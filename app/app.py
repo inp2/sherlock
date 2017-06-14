@@ -8,6 +8,7 @@ import os
 import StringIO
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+from NetworkxD3 import simpleNetworkx
 
 # Store the uploaded files
 UPLOAD_FOLDER = 'uploads/'
@@ -51,10 +52,10 @@ def upload_file():
 # This route is expecting a parameter containing the name
 # of a file. Then it will locate that file on the upload
 # directory and show it on the browser
-@app.route('/uploads/<filename>')
+@app.route('/<filename>')
 def uploaded_file(filename):
-    dg = observe_evidence(filename)
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    observe_evidence(filename)
+    return render_template('observe.html', filename=filename)
     
 
 if __name__ == '__main__':
