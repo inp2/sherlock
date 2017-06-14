@@ -39,6 +39,7 @@ def observe_evidence(filename):
     # Create folder for this case
     # FOLDER_NAME = filename.split(".")[0].encode("utf-8")
     # subprocess.call(['mkdir', FOLDER_NAME])
+    # filename = filename.strip(".txt")[0]
     pos = nx.spring_layout(dg)
     nx.draw(dg,pos)
     plt.savefig(filename + ".png", format="PNG")

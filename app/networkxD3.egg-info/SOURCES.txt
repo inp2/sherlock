@@ -1,7 +1,0 @@
-setup.py
-NetworkxD3/NetworkxD3.py
-NetworkxD3/__init__.py
-networkxD3.egg-info/PKG-INFO
-networkxD3.egg-info/SOURCES.txt
-networkxD3.egg-info/dependency_links.txt
-networkxD3.egg-info/top_level.txt
