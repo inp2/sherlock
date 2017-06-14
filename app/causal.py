@@ -38,9 +38,7 @@ def observe_evidence(filename):
 
     # Create folder for this case
     FOLDER_NAME = filename.split(".")[0].encode("utf-8")
-    subprocess.call(['mkdir', FOLDER_NAME])
-    # subprocess.check_call(['cd', FOLDER_NAME])
-
+    
     # Run graph analysis
     # PageRank
     pr = nx.pagerank(dg)
@@ -48,9 +46,7 @@ def observe_evidence(filename):
     # HITS
     h,a = nx.hits(dg)
     h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)
-
-    gvd.layout(prog='fdp')
-    gvd.draw(FOLDER_NAME + '/' + FOLDER_NAME + ".png")
+    return dg
 
 def summary(graph):
     degr = []

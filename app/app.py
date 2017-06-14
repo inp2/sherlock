@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, make_response
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
-
+import matplotlib.pyplot as plt
+import networkx as nx
 from causal import observe_evidence
-
 import os
+import StringIO
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 # Store the uploaded files
 UPLOAD_FOLDER = 'uploads/'
@@ -50,7 +53,7 @@ def upload_file():
 # directory and show it on the browser
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    observe_evidence(filename)
+    dg = observe_evidence(filename)
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
     
 
