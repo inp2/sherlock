@@ -38,15 +38,18 @@ def observe_evidence(filename):
 
     gvd.layout(prog='neato')
     gvd.draw('static/' + filename + '.png')
-    # plt.savefig("static/" + filename + ".png", format="PNG")
     
-    ''' # Run graph analysis
+    # Run graph analysis
     # PageRank
     pr = nx.pagerank(dg)
     pr = sorted(pr.items(), key=operator.itemgetter(1), reverse=True)
+    
     # HITS
     h,a = nx.hits(dg)
-    h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)'''
+    h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)
+
+    # Return and put in a table
+    return pr, h
 
 def summary(graph):
     degr = []
