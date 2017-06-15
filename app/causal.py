@@ -36,13 +36,9 @@ def observe_evidence(filename):
         dg.add_edge(node['Parent'], node['Child'])
         gvd.add_edge(node['Parent'], node['Child'])
 
-    # Create folder for this case
-    # FOLDER_NAME = filename.split(".")[0].encode("utf-8")
-    # subprocess.call(['mkdir', FOLDER_NAME])
-    # filename = filename.strip(".txt")[0]
-    pos = nx.spring_layout(dg)
-    nx.draw(dg,pos)
-    plt.savefig("static/" + filename + ".png", format="PNG")
+    gvd.layout(prog='neato')
+    gvd.draw('static/' + filename + '.png')
+    # plt.savefig("static/" + filename + ".png", format="PNG")
     
     ''' # Run graph analysis
     # PageRank
