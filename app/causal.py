@@ -42,7 +42,7 @@ def observe_evidence(filename):
     # filename = filename.strip(".txt")[0]
     pos = nx.spring_layout(dg)
     nx.draw(dg,pos)
-    plt.savefig(filename + ".png", format="PNG")
+    plt.savefig("static/" + filename + ".png", format="PNG")
     
     ''' # Run graph analysis
     # PageRank

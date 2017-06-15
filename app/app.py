@@ -8,7 +8,6 @@ import os
 import StringIO
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
-from NetworkxD3 import simpleNetworkx
 
 # Store the uploaded files
 UPLOAD_FOLDER = 'uploads/'
@@ -55,6 +54,7 @@ def upload_file():
 @app.route('/<filename>')
 def uploaded_file(filename):
     observe_evidence(filename)
+    print filename
     return render_template('observe.html', filename=filename)
     
 
