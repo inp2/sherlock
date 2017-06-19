@@ -49,7 +49,7 @@ def observe_evidence(filename):
     h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)
 
     # Return and put in a table
-    return pr, h
+    return h, pr
 
 def summary(graph):
     degr = []

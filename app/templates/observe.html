@@ -54,6 +54,30 @@
       {% endif %}
       {% block content %}
       {% endblock %}
+
+      <table style="float: left" border=1>
+	<tr>
+	  <th>Node</th>
+	  <th>Hub Value</th>
+	{% for t in hubs %}
+	<tr>
+	  <td>{{ t[0] }}</td>
+	  <td>{{ t[1] }}</td>
+	</tr>
+	{% endfor %}
+      </table>
+
+      <table style="float: right" border=1>
+	<tr>
+	  <th>Node</th>
+	  <th>PageRank Value</th>
+	{% for t in pagerank %}
+	<tr>
+	  <td>{{ t[0] }}</td>
+	  <td>{{ t[1] }}</td>
+	</tr>
+	{% endfor %}
+	 </table>      
     </div>
     <!--<script src="script.js"></script>-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
