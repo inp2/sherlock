@@ -12,7 +12,7 @@
 	<p> This initial analysis relies on graph theory, link analysis, and data mining in order to provide you with a logical view of the evidence</p>
 	<form>
 	  Hypothesis Node: <input type="text" name="formulate">
-	  <input type="SUBMIT" value="Investigate" action="{{url_for('formulate') }}">
+	  <input type="submit" value="Investigate">
 	  </form>
       </div>
     </div>

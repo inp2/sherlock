@@ -48,8 +48,16 @@ def observe_evidence(filename):
     h,a = nx.hits(dg)
     h = sorted(h.items(), key=operator.itemgetter(1), reverse=True)
 
+    # Katz Centrality
+    katz = nx.katz_centrality(dg)
+    katz = sorted(katz.items(), key=operator.itemgetter(1), reverse=True)
+
+    # Degree Centrality
+    dcent = nx.degree_centrality(dg)
+    dcent = sorted(dcent.items(), key=operator.itemgetter(1), reverse=True)
+    
     # Return and put in a table
-    return h, pr
+    return h, pr, katz, dcent
 
 def summary(graph):
     degr = []

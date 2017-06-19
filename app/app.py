@@ -53,9 +53,11 @@ def upload_file():
 # directory and show it on the browser
 @app.route('/<filename>')
 def uploaded_file(filename):
-    h, pr = observe_evidence(filename)
-    return render_template('observe.html', filename=filename, hubs=h, pagerank=pr)
-    
+    h, pr, katz, dcent = observe_evidence(filename)
+    return render_template('observe.html', filename=filename, hubs=h, pagerank=pr, katz=katz, dcentrality=dcent)
+
+def formulate():
+    return render_template('formulate.html')
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
