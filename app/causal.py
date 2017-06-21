@@ -57,7 +57,11 @@ def observe_evidence(filename):
     dcent = sorted(dcent.items(), key=operator.itemgetter(1), reverse=True)
     
     # Return and put in a table
-    return h, pr, katz, dcent
+    return h, pr, katz, dcent, dg
+
+def formulate_evidence(src, trg, dg):
+    paths = nx.all_simple_paths(dg, src, trg)
+    return paths
 
 def summary(graph):
     degr = []
@@ -88,7 +92,3 @@ def summary(graph):
     print x
     
 
-    # Check for Paths Between Two Nodes
-    with open("ShortestPath.txt", "wb") as fh:
-        for node in graph:
-            fh.write(str(node) + " " + str(nx.single_source_shortest_path(graph,node)))    

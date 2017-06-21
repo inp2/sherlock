@@ -1,13 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, make_response
+from flask import Flask, flash, render_template, request, redirect, url_for, send_from_directory, make_response
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 import matplotlib.pyplot as plt
 import networkx as nx
 from causal import observe_evidence
+from causal import formulate_evidence
 import os
 import StringIO
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
+
+# Create a global graph
+digraph = nx.DiGraph()
 
 # Store the uploaded files
 UPLOAD_FOLDER = 'uploads/'
@@ -30,7 +34,7 @@ def start_case():
 
 # Route that will process the file upload
 @app.route('/', methods=['GET', 'POST'])
-def upload_file():
+def requester():
     if request.method == 'POST':
         # Check if the post request has the file part
         if 'file' not in request.files:
@@ -45,19 +49,28 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('upload.html')
+            return redirect(url_for('uploaded_file', filename=filename))
+        return render_template('upload.html')
    
 # This route is expecting a parameter containing the name
 # of a file. Then it will locate that file on the upload
 # directory and show it on the browser
 @app.route('/<filename>')
 def uploaded_file(filename):
-    h, pr, katz, dcent = observe_evidence(filename)
+    h, pr, katz, dcent, dg = observe_evidence(filename)
+    # Modify global copy of graph
+    global digraph
+    digraph = nx.DiGraph(dg)
     return render_template('observe.html', filename=filename, hubs=h, pagerank=pr, katz=katz, dcentrality=dcent)
 
-def formulate():
-    return render_template('formulate.html')
+@app.route('/formulate', methods=['POST'])
+def formulate():    
+    src = request.form['src']
+    trg = request.form['trg']
+    # Modify global copy of graph
+    global digraph
+    paths = formulate_evidence(src, trg, digraph)
+    return render_template('formulate.html', paths=paths)
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
