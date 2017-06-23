@@ -9,22 +9,11 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-	<h1>Formulate Hypotheses</h1>
+	<h1>Evaluate Hypothesis</h1>
 	<p> This initial analysis relies on graph theory, link analysis, and data mining in order to provide you with a logical view of the evidence</p>
       </div>
       <div>
-	<table style="float: left">
-	<tr>
-	  {% for t in paths %}
-	<tr>
-	  <td>{% for node in t%} {{ node }} </td> 
-	</tr>
-	{% endfor %}
-	{% endfor %}
-	<form action="{{ url_for('evaluate') }}" method="POST">
-	  <input type="SUBMIT" value="Evaluate">
-	</form>
-	</table>
+	Stuff Here!
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

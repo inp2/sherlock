@@ -13,17 +13,13 @@
 	<p> This initial analysis relies on graph theory, link analysis, and data mining in order to provide you with a logical view of the evidence</p>
       </div>
       <div>
-	<table style="float: left">
+	<table style="float: left" border=1>
 	<tr>
-	  {% for t in paths %}
+	 {% for t in paths %}
 	<tr>
-	  <td>{% for node in t%} {{ node }} </td> 
-	</tr>
+	  <td>{{ t }}</td> <button type="button" onclick="{{ url_for('evaluate') }}">Evaluate</button>
+	 </tr>
 	{% endfor %}
-	{% endfor %}
-	<form action="{{ url_for('evaluate') }}" method="POST">
-	  <input type="SUBMIT" value="Evaluate">
-	</form>
 	</table>
       </div>
     </div>

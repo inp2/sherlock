@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from causal import observe_evidence
 from causal import formulate_evidence
+from causal import evaluate_evidence
 import os
 import StringIO
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -12,6 +13,8 @@ from matplotlib.figure import Figure
 
 # Create a global graph
 digraph = nx.DiGraph()
+# Create a global paths list
+paths = []
 
 # Store the uploaded files
 UPLOAD_FOLDER = 'uploads/'
@@ -69,8 +72,17 @@ def formulate():
     trg = request.form['trg']
     # Modify global copy of graph
     global digraph
+    # Modify global copy of paths
+    global paths
     paths = formulate_evidence(src, trg, digraph)
     return render_template('formulate.html', paths=paths)
+
+@app.route('/evaluate', methods=['POST'])
+def evaluate():
+    global digraph
+    global paths
+    evaluate_evidence(digraph, paths)
+    return render_template('evaluate.html')
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')

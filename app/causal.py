@@ -63,32 +63,29 @@ def formulate_evidence(src, trg, dg):
     paths = nx.all_simple_paths(dg, src, trg)
     return paths
 
-def summary(graph):
+def evaluate_evidence(dg, paths):
     degr = []
     x = []
     y = []
+    deg_dis = []
     # Get the degree of each node
-    for node in graph:
-        # print node
-        degr.append(graph.degree(node))
-        # print node + " " + str(graph.degree(node))
+    for node in dg:
+        degr.append(dg.degree(node))
     # Get the number of nodes in a graph
-    n = nx.number_of_nodes(graph)
+    n = nx.number_of_nodes(dg)
     dis_deg = Counter(degr)
-    print dis_deg
-    x = []
     for key, value in Counter(degr).iteritems():
         y.append(key)
+        v = (float(value)/float(n))
         x.append((float(value)/float(n)))
-    num_bins = 50
-    counts, bins = np.histogram(x, bins=num_bins)
-    bins = bins[:-1] + (bins[1] - bins[0])/2
-    probs = counts/float(counts.sum())
-    # print probs.sum()
-    # Probability Mass Function
-    plt.bar(bins, probs, 1/num_bins)
-    # plt.show()
-    print y
-    print x
-    
+        dict = {'Count': key, 'Degree': v}
+        deg_dis.append(dict)
+    for node in paths:
+        print node
+        for item in node:
+            print item
+            for deg in deg_dis:
+                print deg
+                if deg['Count'] == dg.degree(item):
+                    print item + " " + deg['Degree']
 
