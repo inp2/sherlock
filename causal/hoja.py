@@ -22,8 +22,8 @@ def main(filename):
     summary(g)
     G.layout(prog='fdp')
     G.draw('test.png')
-    # G = pgv.AGraph(g)
-    # g.write("file.dot")
+    G = pgv.AGraph(g)
+    g.write("file.dot")
     
 def summary(graph):
     degr = []
@@ -37,7 +37,7 @@ def summary(graph):
     # Get the number of nodes in a graph
     n = nx.number_of_nodes(graph)
     dis_deg = Counter(degr)
-    print dis_deg
+    # print dis_deg
     x = []
     for key, value in Counter(degr).iteritems():
         y.append(key)
@@ -50,8 +50,8 @@ def summary(graph):
     # Probability Mass Function
     plt.bar(bins, probs, 1/num_bins)
     # plt.show()
-    print y
-    print x
+    # print y
+    # print x
     
     with open("graph_view.csv", "wb") as fh:
         # Write header row
@@ -62,7 +62,7 @@ def summary(graph):
         hits,au = nx.hits(graph)
         adc = nx.katz_centrality(graph)
         sorted_x = sorted(adc.items(), key=operator.itemgetter(1))
-        print sorted_x
+        # print sorted_x
         dc = nx.degree_centrality(graph)
         for (k1,v1), (k2,v2), (k3,v3), (k4,v4) in zip(pr.items(), hits.items(), adc.items(), dc.items()):
             writer.writerow([k1,v1,v2,v3,v4])

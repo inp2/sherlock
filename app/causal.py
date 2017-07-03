@@ -80,12 +80,4 @@ def evaluate_evidence(dg, paths):
         x.append((float(value)/float(n)))
         dict = {'Count': key, 'Degree': v}
         deg_dis.append(dict)
-    for node in paths:
-        print node
-        for item in node:
-            print item
-            for deg in deg_dis:
-                print deg
-                if deg['Count'] == dg.degree(item):
-                    print item + " " + deg['Degree']
-
+    return deg_dis

@@ -1,4 +1,5 @@
 # Convert virtual harddrive to qcow2
+qemu-img convert -f vmdk -O raw image.vmdk image.img
 Virtual Box to convert to qcow
 
 # Qemu

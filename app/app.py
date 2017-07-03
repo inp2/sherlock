@@ -61,15 +61,14 @@ def requester():
 @app.route('/<filename>')
 def uploaded_file(filename):
     h, pr, katz, dcent, dg = observe_evidence(filename)
-    # Modify global copy of graph
     global digraph
     digraph = nx.DiGraph(dg)
     return render_template('observe.html', filename=filename, hubs=h, pagerank=pr, katz=katz, dcentrality=dcent)
 
 @app.route('/formulate', methods=['POST'])
 def formulate():    
-    src = request.form['src']
-    trg = request.form['trg']
+    src = request.form['Source']
+    trg = request.form['Target']
     # Modify global copy of graph
     global digraph
     # Modify global copy of paths
@@ -77,12 +76,15 @@ def formulate():
     paths = formulate_evidence(src, trg, digraph)
     return render_template('formulate.html', paths=paths)
 
-@app.route('/evaluate', methods=['POST'])
-def evaluate():
+@app.route('/evaluate/<path>', methods=['POST'])
+def evaluate(path):
+    print "Hello"
+    print "_____"
     global digraph
     global paths
-    evaluate_evidence(digraph, paths)
-    return render_template('evaluate.html')
+    print path
+    deg_dis = evaluate_evidence(digraph, paths)
+    return render_template('evaluate.html', degdis=deg_dis)
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')

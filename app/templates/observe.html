@@ -12,8 +12,8 @@
 	<h1>Observe Evidence</h1>
 	<p> This initial analysis relies on graph theory, link analysis, and data mining in order to provide you with a logical view of the evidence</p>
 	<form action="{{ url_for('formulate') }}" method="POST">
-	  Source Node: <input type="text" name="src">
-	  Target Node: <input type="text" name="trg">
+	  Source: <input type="text" name="Source">
+	  Target: <input type="text" name="Target">
 	  <input type="SUBMIT" value="Investigate">
 	  </form>
       </div>
@@ -26,7 +26,7 @@
       {% block content %}
       {% endblock %}
       <div>
-	<table style="float: left" border=1>
+ 	<table style="float: left" border=1>
 	<tr>
 	  <th>Node</th>
 	  <th>Hub</th>
@@ -84,7 +84,6 @@
 	<caption>The <em>Degree Centrality</em> looks at how well this piece of evidence is to the rest of the evidence.</caption>
       </table>
       </div>
-      
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->

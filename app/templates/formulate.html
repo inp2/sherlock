@@ -9,10 +9,11 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-	<h1>Formulate Hypotheses</h1>
+	<h1>Formulate & Evaluate Hypotheses</h1>
 	<p> This initial analysis relies on graph theory, link analysis, and data mining in order to provide you with a logical view of the evidence</p>
       </div>
       <div>
+	{% node = NULL %}
 	<table style="float: left">
 	<tr>
 	  {% for t in paths %}
@@ -21,7 +22,7 @@
 	</tr>
 	{% endfor %}
 	{% endfor %}
-	<form action="{{ url_for('evaluate') }}" method="POST">
+	<form action="{{ url_for('evaluate', path=node) }}" method="POST">
 	  <input type="SUBMIT" value="Evaluate">
 	</form>
 	</table>

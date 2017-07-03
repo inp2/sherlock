@@ -1,0 +1,183 @@
+Offset(P)          Proto    Local Address                  Foreign Address      State            Pid      Owner          Created
+0x1e4c3a10         UDPv4    0.0.0.0:5355                   *:*                                   1184     svchost.exe    2017-07-01 18:45:08 UTC+0000
+0x1e717b40         UDPv4    0.0.0.0:0                      *:*                                   1264     svchost.exe    2017-07-01 18:45:09 UTC+0000
+0x1e717b40         UDPv6    :::0                           *:*                                   1264     svchost.exe    2017-07-01 18:45:09 UTC+0000
+0x1e7575b8         UDPv4    0.0.0.0:0                      *:*                                   1184     svchost.exe    2017-07-01 18:45:08 UTC+0000
+0x1e7575b8         UDPv6    :::0                           *:*                                   1184     svchost.exe    2017-07-01 18:45:08 UTC+0000
+0x1e77e890         UDPv4    192.168.1.116:137              *:*                                   4        System         2017-07-01 18:45:04 UTC+0000
+0x1e780e28         UDPv4    0.0.0.0:0                      *:*                                   1264     svchost.exe    2017-07-01 18:45:09 UTC+0000
+0x1e7cf778         UDPv4    0.0.0.0:500                    *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7d1db0         UDPv4    0.0.0.0:4500                   *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7d2d80         UDPv4    0.0.0.0:4500                   *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7d2d80         UDPv6    :::4500                        *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7d4a40         UDPv4    0.0.0.0:0                      *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7d5630         UDPv4    0.0.0.0:500                    *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7d5630         UDPv6    :::500                         *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7e7788         UDPv4    0.0.0.0:0                      *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7e7788         UDPv6    :::0                           *:*                                   892      svchost.exe    2017-07-01 18:45:03 UTC+0000
+0x1e7e8550         UDPv4    192.168.1.116:138              *:*                                   4        System         2017-07-01 18:45:04 UTC+0000
+0x1e9badd0         UDPv4    0.0.0.0:5355                   *:*                                   1184     svchost.exe    2017-07-01 18:45:08 UTC+0000
+0x1e9badd0         UDPv6    :::5355                        *:*                                   1184     svchost.exe    2017-07-01 18:45:08 UTC+0000
+0x1e4833f8         TCPv4    0.0.0.0:3389                   0.0.0.0:0            LISTENING        1184     svchost.exe    
+0x1e4887e0         TCPv4    0.0.0.0:3389                   0.0.0.0:0            LISTENING        1184     svchost.exe    
+0x1e4887e0         TCPv6    :::3389                        :::0                 LISTENING        1184     svchost.exe    
+0x1e60a230         TCPv4    0.0.0.0:49154                  0.0.0.0:0            LISTENING        892      svchost.exe    
+0x1e60e368         TCPv4    0.0.0.0:49154                  0.0.0.0:0            LISTENING        892      svchost.exe    
+0x1e60e368         TCPv6    :::49154                       :::0                 LISTENING        892      svchost.exe    
+0x1e6538e8         TCPv4    0.0.0.0:49155                  0.0.0.0:0            LISTENING        424      services.exe   
+0x1e6d3328         TCPv4    0.0.0.0:135                    0.0.0.0:0            LISTENING        676      svchost.exe    
+0x1e6d3328         TCPv6    :::135                         :::0                 LISTENING        676      svchost.exe    
+0x1e6d3710         TCPv4    0.0.0.0:135                    0.0.0.0:0            LISTENING        676      svchost.exe    
+0x1e6da5f8         TCPv4    0.0.0.0:49152                  0.0.0.0:0            LISTENING        348      wininit.exe    
+0x1e6da860         TCPv4    0.0.0.0:49152                  0.0.0.0:0            LISTENING        348      wininit.exe    
+0x1e6da860         TCPv6    :::49152                       :::0                 LISTENING        348      wininit.exe    
+0x1e755178         TCPv4    0.0.0.0:49156                  0.0.0.0:0            LISTENING        1264     svchost.exe    
+0x1e76e618         TCPv4    0.0.0.0:445                    0.0.0.0:0            LISTENING        4        System         
+0x1e76e618         TCPv6    :::445                         :::0                 LISTENING        4        System         
+0x1e7e9080         TCPv4    192.168.1.116:139              0.0.0.0:0            LISTENING        4        System         
+0x1e9e7f60         TCPv4    0.0.0.0:49153                  0.0.0.0:0            LISTENING        724      svchost.exe    
+0x1e47e008         TCPv4    192.168.1.116:49498            96.17.105.107:443    ESTABLISHED      3100     firefox.exe    
+0x1e4fb060         TCPv4    192.168.1.116:49465            199.187.193.1:443    ESTABLISHED      3100     firefox.exe    
+0x1e6004e8         TCPv4    192.168.1.116:49436            40.87.70.165:443     ESTABLISHED      3100     firefox.exe    
+0x1e64b618         TCPv4    192.168.1.116:49519            23.101.115.193:443   ESTABLISHED      3100     firefox.exe    
+0x1e670df8         TCPv4    192.168.1.116:49220            104.208.28.54:443    ESTABLISHED      3100     firefox.exe    
+0x1e693df8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49424 2600:1407:9:2a4::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1e6acdf8         TCPv4    192.168.1.116:49499            96.17.105.107:443    ESTABLISHED      3100     firefox.exe    
+0x1e70cd00         TCPv4    127.0.0.1:49161                127.0.0.1:49160      ESTABLISHED      3100     firefox.exe    
+0x1e757a70         TCPv4    192.168.1.116:49458            161.170.238.122:443  ESTABLISHED      3100     firefox.exe    
+0x1e78bdf8         TCPv4    192.168.1.116:49238            40.87.65.131:443     CLOSED           3100     firefox.exe    
+0x1e7face0         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49255 2606:2800:220:235b:2d0:24b1:17e2:22a5:443 ESTABLISHED      3100     firefox.exe    
+0x1e9c2458         TCPv4    192.168.1.116:49509            54.246.110.54:443    CLOSED           3100     firefox.exe    
+0x1e9c7838         TCPv4    192.168.1.116:49494            52.173.194.40:443    ESTABLISHED      3100     firefox.exe    
+0x1f1632a8         UDPv4    0.0.0.0:0                      *:*                                   624      VBoxService.ex 2017-07-01 18:49:26 UTC+0000
+0x1eba9008         TCPv4    0.0.0.0:49156                  0.0.0.0:0            LISTENING        1264     svchost.exe    
+0x1eba9008         TCPv6    :::49156                       :::0                 LISTENING        1264     svchost.exe    
+0x1ebdf220         TCPv4    0.0.0.0:49153                  0.0.0.0:0            LISTENING        724      svchost.exe    
+0x1ebdf220         TCPv6    :::49153                       :::0                 LISTENING        724      svchost.exe    
+0x1ee38880         TCPv4    0.0.0.0:49157                  0.0.0.0:0            LISTENING        432      lsass.exe      
+0x1ee38880         TCPv6    :::49157                       :::0                 LISTENING        432      lsass.exe      
+0x1f1173d8         TCPv4    0.0.0.0:49155                  0.0.0.0:0            LISTENING        424      services.exe   
+0x1f1173d8         TCPv6    :::49155                       :::0                 LISTENING        424      services.exe   
+0x1f17b248         TCPv4    0.0.0.0:49157                  0.0.0.0:0            LISTENING        432      lsass.exe      
+0x1ee2edf8         TCPv4    192.168.1.116:49553            40.77.16.143:443     ESTABLISHED      3100     firefox.exe    
+0x1f1625f8         TCPv4    192.168.1.116:49574            129.146.14.98:443    CLOSED           3100     firefox.exe    
+0x1f164df8         TCPv4    192.168.1.116:49236            40.87.65.131:443     CLOSED           3100     firefox.exe    
+0x1f166520         TCPv4    192.168.1.116:49531            168.61.189.169:443   ESTABLISHED      3100     firefox.exe    
+0x1f16d408         TCPv4    192.168.1.116:49311            72.21.91.29:80       ESTABLISHED      3100     firefox.exe    
+0x1f178870         TCPv4    192.168.1.116:49511            23.101.203.117:443   ESTABLISHED      3100     firefox.exe    
+0x1f178c90         TCPv4    192.168.1.116:49430            23.53.233.144:443    ESTABLISHED      3100     firefox.exe    
+0x1f1873f0         TCPv4    192.168.1.116:49433            104.98.66.217:443    ESTABLISHED      3100     firefox.exe    
+0x1f187600         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49249 2600:1407:9:296::1b01:80 CLOSED           3100     firefox.exe    
+0x1f18ca08         TCPv4    -:49455                        52.35.150.202:443    CLOSED           3100     firefox.exe    
+0x1f194008         TCPv4    192.168.1.116:49530            168.61.189.169:443   ESTABLISHED      3100     firefox.exe    
+0x1f197bc8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49241 2606:2800:21f:16d2:d9:26d7:10a3:cf1:443 ESTABLISHED      3100     firefox.exe    
+0x1f1a9240         TCPv4    192.168.1.116:49323            23.53.234.126:443    CLOSED           3100     firefox.exe    
+0x1f1b6df8         TCPv4    192.168.1.116:49575            34.194.216.192:443   CLOSED           3100     firefox.exe    
+0x1f44ff50         UDPv4    0.0.0.0:0                      *:*                                   624      VBoxService.ex 2017-07-01 18:49:12 UTC+0000
+0x1fd6a178         UDPv4    127.0.0.1:1900                 *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd71998         UDPv4    192.168.1.116:1900             *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd75008         UDPv4    192.168.1.116:56284            *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd7de88         UDPv6    ::1:1900                       *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd83a80         UDPv6    fe80::38d4:51a5:25d8:66d4:1900 *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd8a008         UDPv6    fe80::38d4:51a5:25d8:66d4:56282 *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd8dcf0         UDPv6    ::1:56283                      *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1fd90f50         UDPv4    127.0.0.1:56285                *:*                                   3376     svchost.exe    2017-07-01 18:47:12 UTC+0000
+0x1f402df8         TCPv4    192.168.1.116:49391            54.230.89.37:443     CLOSED           3100     firefox.exe    
+0x1f403ce0         TCPv4    192.168.1.116:49566            23.99.112.73:443     ESTABLISHED      3100     firefox.exe    
+0x1f406df8         TCPv4    192.168.1.116:49358            52.85.112.116:80     ESTABLISHED      3100     firefox.exe    
+0x1f408008         TCPv4    -:49578                        162.208.22.39:443    CLOSED           3100     firefox.exe    
+0x1f409008         TCPv4    192.168.1.116:49567            23.99.112.73:443     ESTABLISHED      3100     firefox.exe    
+0x1f40a630         TCPv4    192.168.1.116:49600            54.230.89.206:443    ESTABLISHED      3100     firefox.exe    
+0x1f414df8         TCPv4    192.168.1.116:49407            54.165.129.5:443     CLOSED           3100     firefox.exe    
+0x1f41cc30         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49362 2600:1407:9:292::201a:80 CLOSED           3100     firefox.exe    
+0x1f41e380         TCPv4    192.168.1.116:49417            52.84.0.10:443       CLOSED           3100     firefox.exe    
+0x1f41e668         TCPv4    192.168.1.116:49307            23.215.105.50:443    CLOSED           3100     firefox.exe    
+0x1f4205b8         TCPv4    -:49189                        104.98.67.181:443    CLOSED           3100     firefox.exe    
+0x1f427df8         TCPv4    192.168.1.116:49501            96.17.105.107:443    ESTABLISHED      3100     firefox.exe    
+0x1f429df8         TCPv4    192.168.1.116:49395            54.88.255.222:443    CLOSED           3100     firefox.exe    
+0x1f42c2b0         TCPv4    192.168.1.116:49247            207.200.74.133:443   CLOSED           3100     firefox.exe    
+0x1f42c5f0         TCPv4    192.168.1.116:49321            23.53.234.126:443    CLOSED           3100     firefox.exe    
+0x1f432df8         TCPv4    192.168.1.116:49452            104.98.72.152:443    ESTABLISHED      3100     firefox.exe    
+0x1f43a4e0         TCPv4    192.168.1.116:49437            40.87.70.165:443     ESTABLISHED      3100     firefox.exe    
+0x1f43d910         TCPv4    192.168.1.116:49510            104.98.66.141:443    ESTABLISHED      3100     firefox.exe    
+0x1f4406b8         TCPv4    192.168.1.116:49533            52.176.45.134:443    ESTABLISHED      3100     firefox.exe    
+0x1f440df8         TCPv4    192.168.1.116:49309            23.202.212.90:443    CLOSED           3100     firefox.exe    
+0x1f442118         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49593 2600:1407:21:2a1::201a:80 CLOSED           3100     firefox.exe    
+0x1f4527b8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49271 2600:1407:9:292::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1f452df8         TCPv4    192.168.1.116:49461            104.98.67.169:443    ESTABLISHED      3100     firefox.exe    
+0x1f456450         TCPv4    192.168.1.116:49556            65.52.108.76:443     ESTABLISHED      3100     firefox.exe    
+0x1f457be8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49296 2607:f8b0:4009:80d::200e:80 CLOSED           3100     firefox.exe    
+0x1f457df8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49298 2607:f8b0:4009:80d::2006:443 ESTABLISHED      3100     firefox.exe    
+0x1f4581d8         TCPv4    192.168.1.116:49547            52.225.134.148:443   ESTABLISHED      3100     firefox.exe    
+0x1f45e348         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49186 2600:1407:9:292::201a:80 CLOSED           3100     firefox.exe    
+0x1f45ea88         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49270 2600:1407:9:292::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1f45f618         TCPv4    192.168.1.116:49253            152.163.56.3:443     CLOSED           3100     firefox.exe    
+0x1f472a48         TCPv4    192.168.1.116:49400            52.0.222.62:443      ESTABLISHED      3100     firefox.exe    
+0x1f4737e8         TCPv4    192.168.1.116:49279            23.53.234.126:443    CLOSED           3100     firefox.exe    
+0x1f475c10         TCPv4    192.168.1.116:49261            192.229.173.242:443  ESTABLISHED      3100     firefox.exe    
+0x1f47c468         TCPv4    192.168.1.116:49295            216.58.192.166:443   ESTABLISHED      3100     firefox.exe    
+0x1f480820         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49313 2a03:2880:f00d:104:face:b00c::8c:443 ESTABLISHED      3100     firefox.exe    
+0x1f482008         TCPv4    192.168.1.116:49384            69.169.86.39:443     CLOSED           3100     firefox.exe    
+0x1f483350         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49459 2600:1407:9:2a4::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1f4845a8         TCPv4    192.168.1.116:49508            96.16.153.207:443    ESTABLISHED      3100     firefox.exe    
+0x1f48c5a8         TCPv4    192.168.1.116:49265            52.55.172.232:443    CLOSED           3100     firefox.exe    
+0x1f48db08         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49263 2600:1407:9:292::201a:80 CLOSED           3100     firefox.exe    
+0x1f48f850         TCPv4    192.168.1.116:49580            34.192.59.112:443    CLOSED           -1                      
+0x1f490008         TCPv4    192.168.1.116:49532            52.176.45.134:443    ESTABLISHED      3100     firefox.exe    
+0x1f490388         TCPv4    192.168.1.116:49554            40.77.16.143:443     ESTABLISHED      3100     firefox.exe    
+0x1f4a4b60         TCPv4    192.168.1.116:49581            34.192.59.112:443    CLOSED           3100     firefox.exe    
+0x1fc48858         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49520 2606:2800:11f:7de:d31:7db:168f:1225:443 ESTABLISHED      3100     firefox.exe    
+0x1fc4b6e0         TCPv4    192.168.1.116:49529            131.253.14.213:443   ESTABLISHED      3100     firefox.exe    
+0x1fc4bdf8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49286 2607:f8b0:4009:800::2002:443 ESTABLISHED      3100     firefox.exe    
+0x1fcbc200         TCPv4    192.168.1.116:49605            65.52.108.76:443     ESTABLISHED      3100     firefox.exe    
+0x1fcbc6e8         TCPv4    192.168.1.116:49480            104.98.66.217:443    ESTABLISHED      3100     firefox.exe    
+0x1fcc7008         TCPv4    192.168.1.116:49521            13.77.92.139:443     ESTABLISHED      3100     firefox.exe    
+0x1fcc7558         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49208 2400:cb00:2048:1::c629:d6bb:80 CLOSED           3100     firefox.exe    
+0x1fcc7930         TCPv4    192.168.1.116:49231            13.107.42.11:443     ESTABLISHED      3100     firefox.exe    
+0x1fccbdf8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49342 2600:1407:9:292::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fcd7638         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49474 2600:1407:9:2a4::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fcd9550         TCPv4    127.0.0.1:49160                127.0.0.1:49161      ESTABLISHED      3100     firefox.exe    
+0x1fcde008         TCPv4    192.168.1.116:49239            131.253.14.229:443   CLOSED           3100     firefox.exe    
+0x1fcde920         TCPv4    192.168.1.116:49244            152.163.56.3:443     ESTABLISHED      3100     firefox.exe    
+0x1fce3b08         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49168 2607:f8b0:4009:80d::200e:443 CLOSED           3100     firefox.exe    
+0x1fceadf8         TCPv4    192.168.1.116:49306            172.217.1.34:443     ESTABLISHED      3100     firefox.exe    
+0x1fcef008         TCPv4    192.168.1.116:49162            23.62.227.81:80      CLOSED           3100     firefox.exe    
+0x1fd204a8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49471 2600:1407:9:2a4::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fd33488         TCPv4    192.168.1.116:49166            72.21.91.29:80       ESTABLISHED      3100     firefox.exe    
+0x1fd3b7e8         TCPv4    -:49463                        54.239.17.112:443    CLOSED           3100     firefox.exe    
+0x1fd7b008         TCPv4    192.168.1.116:49549            52.225.134.148:443   ESTABLISHED      3100     firefox.exe    
+0x1fd7d620         TCPv4    127.0.0.1:49164                127.0.0.1:49163      ESTABLISHED      3416     firefox.exe    
+0x1fd98708         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49227 2620:109:c002::6cae:a0a:443 ESTABLISHED      3100     firefox.exe    
+0x1fd98df8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49446 2600:1407:21:2a3::b34:443 ESTABLISHED      3100     firefox.exe    
+0x1fd9e498         TCPv4    127.0.0.1:49163                127.0.0.1:49164      ESTABLISHED      3416     firefox.exe    
+0x1fda36f0         TCPv4    192.168.1.116:49500            96.17.105.107:443    ESTABLISHED      3100     firefox.exe    
+0x1fda4578         TCPv4    192.168.1.116:49233            13.107.42.11:443     ESTABLISHED      3100     firefox.exe    
+0x1fda52e0         TCPv4    192.168.1.116:49493            52.173.194.40:443    ESTABLISHED      3100     firefox.exe    
+0x1fda9380         TCPv4    -:49464                        54.239.17.112:443    CLOSED           3100     firefox.exe    
+0x1fdb2df8         TCPv4    192.168.1.116:49583            152.163.64.2:443     ESTABLISHED      3100     firefox.exe    
+0x1fdb88b8         TCPv4    192.168.1.116:49535            23.101.115.193:443   ESTABLISHED      3100     firefox.exe    
+0x1fdb99f0         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49297 2607:f8b0:4009:80d::2001:443 ESTABLISHED      3100     firefox.exe    
+0x1fdbc008         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49425 2600:1407:9:2a4::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fdbda20         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49588 2600:1407:21:2a1::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fdbf008         TCPv4    -:49611                        69.172.216.111:443   CLOSED           3100     firefox.exe    
+0x1fdc0c00         TCPv4    192.168.1.116:49462            72.30.2.182:443      ESTABLISHED      3100     firefox.exe    
+0x1fdc8008         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49318 2600:1407:9:292::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fdcd890         TCPv4    192.168.1.116:49550            104.43.254.159:443   ESTABLISHED      3100     firefox.exe    
+0x1fdcf8b8         TCPv4    192.168.1.116:49199            104.98.64.183:443    ESTABLISHED      3100     firefox.exe    
+0x1fdd4438         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49354 2600:1407:9:292::201a:80 CLOSED           3100     firefox.exe    
+0x1fdd9df8         TCPv4    192.168.1.116:49204            104.98.64.183:443    ESTABLISHED      3100     firefox.exe    
+0x1fddb440         TCPv4    192.168.1.116:49586            169.60.66.38:443     ESTABLISHED      3100     firefox.exe    
+0x1fde08d8         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49496 2606:2800:11f:7de:d31:7db:168f:1225:443 ESTABLISHED      3100     firefox.exe    
+0x1fde23f0         TCPv4    192.168.1.116:49585            151.101.32.166:443   ESTABLISHED      3100     firefox.exe    
+0x1fde2bc8         TCPv4    192.168.1.116:49196            13.107.42.11:443     ESTABLISHED      3100     firefox.exe    
+0x1fde4a00         TCPv4    -:49612                        69.172.216.111:443   CLOSED           3100     firefox.exe    
+0x1fdeb4d8         TCPv4    192.168.1.116:49606            65.52.108.76:443     ESTABLISHED      3100     firefox.exe    
+0x1fdecbd0         TCPv4    192.168.1.116:49329            216.200.233.104:443  ESTABLISHED      3100     firefox.exe    
+0x1fded5c8         TCPv4    192.168.1.116:49528            131.253.14.213:443   ESTABLISHED      3100     firefox.exe    
+0x1fdee9d0         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49515 2600:1407:9:292::201a:80 ESTABLISHED      3100     firefox.exe    
+0x1fdf2c00         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49428 2a01:111:f100:1002::4134:c0cb:443 ESTABLISHED      3100     firefox.exe    
+0x1fdf95d8         TCPv4    192.168.1.116:49577            34.194.216.192:443   ESTABLISHED      3100     firefox.exe    
+0x1fdfcd90         TCPv6    2601:240:8100:dd35:4974:c7ac:44d1:f62b:49251 2600:1407:9:296::1b01:80 CLOSED           3100     firefox.exe    
+0x1fdfe270         TCPv4    192.168.1.116:49540            40.77.16.36:443      ESTABLISHED      3100     firefox.exe    
+0x1fdfebd0         TCPv4    192.168.1.116:49536            91.190.219.146:443   CLOSED           3100     firefox.exe    
+0x1fdffbd0         TCPv4    192.168.1.116:49334            23.202.192.129:443   CLOSED           3100     firefox.exe    
