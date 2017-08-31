@@ -85,10 +85,19 @@ def build_graph(g_list):
         gvd.add_edge(node['Parent'], node['Child'])
     return dg, gvd
 
+# Input: file
+# Output: Directed Graph, Undirected Graph, PageRank, HITs
+#         Directed Graph Visualization, Data Mining Results
+def observe(filename):
+    # Parse the file
+    glst = parser(filename)
+    print glst
+    
 # Parse the file
-# Rturn a List of Dictionaries
-def parse_file(filename):
-    graph_list = []
+# Input: file
+# Output: A list of dictionaries
+def parser(filename):
+    grph = []
     with open(filename) as f:
         lines = f.readlines()[1:]
         for line in lines:
@@ -96,8 +105,8 @@ def parse_file(filename):
             evt = line.split("->")
             if len(evt) > 1:
                 dict = {"Parent": evt[0].strip(" "), "Child":evt[1].strip(" ")}
-                graph_list.append(dict)
-    return graph_list
+                grph.append(dict)
+    return grph
 
 # Build a directed graph
 # Input: List of Directories
@@ -125,6 +134,7 @@ if __name__ == "__main__":
         sciMthd=raw_input("Choose a Phase: ")
         if sciMthd == "1":
             filename = raw_input("\nEnter Filename: ")
+            observe(filename)
             # Run Program
             # Write results to a PDF
             # Print out location of PDF
