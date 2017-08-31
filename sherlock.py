@@ -1,4 +1,7 @@
 #!/usr/bin/env python2.7
+from pyPdf import PdfFileWriter, PdfFileReader
+from reportlab.pdfgen import canvas
+from StringIO import StringIO
 import csv
 import os
 import networkx as nx
@@ -72,11 +75,12 @@ def summary(graph):
         for (k1,v1), (k2,v2), (k3,v3), (k4,v4) in zip(pr.items(), hits.items(), adc.items(), dc.items()):
             writer.writerow([k1,v1,v2,v3,v4])
 
-            
-def build_graph(g_list):
+# Input: List of Dictionaries
+# Output: Two Directed Graphs
+def builder(glst):
     dg = nx.DiGraph()
     gvd = pgv.AGraph(directed=True)
-    for node in g_list:
+    for node in glst:
         dg.add_node(node['Child'])
         gvd.add_node(node['Child'])
         dg.add_node(node['Parent'])
@@ -86,12 +90,24 @@ def build_graph(g_list):
     return dg, gvd
 
 # Input: file
-# Output: Directed Graph, Undirected Graph, PageRank, HITs
+# Output: PDF Directed Graph, Undirected Graph, PageRank, HITs
 #         Directed Graph Visualization, Data Mining Results
 def observe(filename):
+    # Create Observe PDF
+    pdf = canvas.Canvas("observe.pdf")
+    
     # Parse the file
     glst = parser(filename)
-    print glst
+
+    # Build graph
+    g, G = builder(glst)
+
+    # Visualize Graph
+    G.layout(prog='fdp')
+    G.draw("observe.png")
+    pdf.drawImage("observe.png", 0, 0, 10, 10)
+    pdf.showPage()
+    pdf.save()
     
 # Parse the file
 # Input: file
@@ -151,4 +167,3 @@ if __name__ == "__main__":
             break
         else:
             print "\nUnknown Option Selected!"
-    # main(sys.argv[1])
