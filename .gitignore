@@ -1,0 +1,4 @@
+*.py~
+*.vmem
+*.pyc
+*.raw

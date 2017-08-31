@@ -1,0 +1,21 @@
+https://www.offensive-security.com/metasploit-unleashed/client-side-exploits/
+
+In the security world, social engineering has become an increasingly used attack vector. Even though technologies are changing, one thing that seems to stay the same is the lack of security with people. Due to that, social engineering has become a very “hot” topic in the security world today.
+
+In our first scenario our attacker has been doing a lot of information gathering using tools such as the Metasploit Framework, Maltego and other tools to gather email addresses and information to launch a social engineering client side exploit on the victim.
+
+After a successful dumpster dive and scraping for emails from the web, he has gained two key pieces of information.
+
+1) They use “Best Computers” for technical services.
+
+2) The IT Dept has an email address of itdept@victim.com
+
+We want to gain shell on the IT Departments computer and run a key logger to gain passwords, intel or any other juicy tidbits of info.
+
+We start off by loading our msfconsole. After we are loaded we want to create a malicious PDF that will give the victim a sense of security in opening it. To do that, it must appear legit, have a title that is realistic, and not be flagged by anti-virus or other security alert software.
+
+We are going to be using the Adobe Reader ‘util.printf()’ JavaScript Function Stack Buffer Overflow Vulnerability. Adobe Reader is prone to a stack-based buffer-overflow vulnerability because the application fails to perform adequate boundary checks on user-supplied data. An attacker can exploit this issue to execute arbitrary code with the privileges of the user running the application or crash the application, denying service to legitimate users.
+
+So we start by creating our malicious PDF file for use in this client side exploit.
+
+Dropbox -> PDF -> Backdoor TCP -> Keylogger installed by Machine
