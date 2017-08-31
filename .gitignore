@@ -1,14 +1,5 @@
-<<<<<<< HEAD
 *.py~
 *.vmem
 *.pyc
 *.raw
-=======
-<<<<<<< HEAD
-*.py~
-*.vmem
-*.pyc
-=======
-.py~
->>>>>>> 77ff95c2b31f73f5fd23b61ea6baa7f822dd1654
->>>>>>> 512cb026a5b8587ae07544c17e08aca48550b82f
+README~
