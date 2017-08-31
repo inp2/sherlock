@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Sherlock
 
 ## INTRODUCTION
@@ -27,6 +26,3 @@ sound analysis of the evidence.
 ## EXAMPLES
 
 ## REFERENCES
-=======
-# sherlock
->>>>>>> parent of 9b78742... updating README
