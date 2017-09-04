@@ -1,37 +1,34 @@
 #!/usr/bin/env python2.7
-from pyPdf import PdfFileWriter, PdfFileReader
-from reportlab.pdfgen import canvas
-from StringIO import StringIO
-import csv
-import os
-import networkx as nx
-import operator
-import sys
-import matplotlib.pyplot as plt
 from networkx.drawing.nx_pydot import write_dot
 from networkx.drawing.nx_agraph import graphviz_layout
-import pydot
-import pygraphviz as pgv
 from collections import Counter
-import numpy as np
 from scipy import stats
 from scipy.stats import norm
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.units import inch, cm
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, inch, landscape
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+from matplotlib import rcParams
+from sklearn import cluster
 
-# Build a list from the data in the file
-# Input: File
-# Output: PNG, DOT file of graphs
-def graph_builder(filename):
-    # Create a list from uploaded file
-    graph_list = parse_file(filename)
-    # Build a directed graph
-    graph = directed(graph_list)
-    # Create undirected graph and AGraph
-    g, G = build_graph(graph_list)
-    summary(g)
-    G.layout(prog='fdp')
-    G.draw('test.png')
-    G = pgv.AGraph(g)
-    g.write("file.dot")
+import csv
+import os
+import operator
+import sys
+import pydot
+import sklearn
+
+import networkx as nx
+import matplotlib.pyplot as plt
+import pygraphviz as pgv
+import numpy as np
+import pandas as pd
+import scipy.stats as stats
+import seaborn as sns
     
 def summary(graph):
     degr = []
@@ -61,20 +58,6 @@ def summary(graph):
     # print y
     # print x
     
-    with open("graph_view.csv", "wb") as fh:
-        # Write header row
-        writer=csv.writer(fh)
-        writer.writerow(["NodeID", "PageRank","Hub", "KatzCentrality", "DegreeCentrality"])
-        # Calculate values of graph
-        pr = nx.pagerank(graph)
-        hits,au = nx.hits(graph)
-        adc = nx.katz_centrality(graph)
-        sorted_x = sorted(adc.items(), key=operator.itemgetter(1))
-        # print sorted_x
-        dc = nx.degree_centrality(graph)
-        for (k1,v1), (k2,v2), (k3,v3), (k4,v4) in zip(pr.items(), hits.items(), adc.items(), dc.items()):
-            writer.writerow([k1,v1,v2,v3,v4])
-
 # Input: List of Dictionaries
 # Output: Two Directed Graphs
 def builder(glst):
@@ -90,11 +73,14 @@ def builder(glst):
     return dg, gvd
 
 # Input: file
-# Output: PDF Directed Graph, Undirected Graph, PageRank, HITs
-#         Directed Graph Visualization, Data Mining Results
+# Output: PDF File - Directed Graph Visualization
+#         CSV File - Table of PageRank, HITs,
+#         Degree Centrality, Katz Centrality
+#         TXT File - Data Mining Results
+# Location: case
 def observe(filename):
-    # Create Observe PDF
-    pdf = canvas.Canvas("observe.pdf")
+    # Make a folder
+    os.makedirs("case")
     
     # Parse the file
     glst = parser(filename)
@@ -104,11 +90,31 @@ def observe(filename):
 
     # Visualize Graph
     G.layout(prog='fdp')
-    G.draw("observe.png")
-    pdf.drawImage("observe.png", 0, 0, 10, 10)
-    pdf.showPage()
-    pdf.save()
+    G.draw("case/observe.pdf")
     
+    # Determine HITs, PageRank, Katz Centrality, Degree Centrality
+    with open("case/observe.csv", "wb") as fh:
+        # Write header row
+        writer=csv.writer(fh)
+        writer.writerow(["NodeID", "PageRank","Hub", "KatzCentrality", "DegreeCentrality"])
+        # Calculate values of graph
+        pr = nx.pagerank(g)
+        hits,au = nx.hits(g)
+        adc = nx.katz_centrality(g)
+        sorted_x = sorted(adc.items(), key=operator.itemgetter(1))
+        dc = nx.degree_centrality(g)
+        for (k1,v1), (k2,v2), (k3,v3), (k4,v4) in zip(pr.items(), hits.items(), adc.items(), dc.items()):
+            writer.writerow([k1,v1,v2,v3,v4])
+
+    # Observe with Data Mining
+    df = pd.read_csv('case/observe.csv')
+    df.describe().to_csv("case/observe.txt")
+
+    df.columns = ['PageRank', 'Hub']
+    # plt.scatter(df.PageRank, df.hub)
+    # plt.xlabel('PageRank')
+    # plt.ylabel('Hub')
+        
 # Parse the file
 # Input: file
 # Output: A list of dictionaries
