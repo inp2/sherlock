@@ -17,7 +17,7 @@ sound analysis of the evidence.
 
 ## METHODOLOGY
 
-### PICTURE
+![alt text](https://github.com/inp2/sherlock/blob/master/pics/Scientific%20Method.png)
 
 ### Observe Evidence
 
