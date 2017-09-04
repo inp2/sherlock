@@ -19,6 +19,14 @@ sound analysis of the evidence.
 
 ### PICTURE
 
+### Observe Evidence
+
+### Formulate Hypothesis
+
+### Evaluate Hypotheses
+
+### Report Results
+
 ## REQUIREMENTS
 
 ## INSTALL
