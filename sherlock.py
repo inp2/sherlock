@@ -58,8 +58,10 @@ def evaluate(src, trg, grph):
     probs = counts/float(counts.sum())
 
     for item in g:
-        print item + " " + g.degree(item)
-    
+        dg = grph.degree(item)
+        num = y.index(dg)
+        print item + " " + str(x[num])
+    # Please use problog to determine confidence score
     
 # Input: Source Node
 # Output: Edges in depth-first-search
@@ -180,8 +182,7 @@ if __name__ == "__main__":
         1. Observe Evidence
         2. Formulate Hypotheses
         3. Evaluate Hypotheses
-        4. Report Results
-        5. Exit
+        4. Exit
         """)
         sciMthd=raw_input("Choose a Phase: ")
         if sciMthd == "1":
@@ -192,11 +193,9 @@ if __name__ == "__main__":
             formulate(src, grph)
         elif sciMthd == "3":
             src = raw_input("\nEnter Source Node of your Hypothesis: ")
-            trg = raw_input("\nEnter Targe Node of your Hypothesis: ")
+            trg = raw_input("\nEnter Targe Node of your Hypothesis:\n")
             evaluate(src, trg, grph)
         elif sciMthd == "4":
-            "Print Results"
-        elif sciMthd == "5":
             print "\nExit"
             break
         else:
