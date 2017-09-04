@@ -29,20 +29,25 @@ import numpy as np
 import pandas as pd
 import scipy.stats as stats
 import seaborn as sns
-    
-def summary(graph):
+
+# Input: Source Node, Target Node, Graph
+# Output: Confidence Score of Hypothesis
+def evaluate(src, trg, grph):
+    # Check if path exists
+    if nx.has_path(grph, src, trg):
+        g = nx.shortest_path(grph, source=src, target=trg)
+    else:
+        print "path does not exist"
+        
     degr = []
     x = []
     y = []
     # Get the degree of each node
-    for node in graph:
-        # print node
-        degr.append(graph.degree(node))
-        # print node + " " + str(graph.degree(node))
+    for node in grph:
+        degr.append(grph.degree(node))
     # Get the number of nodes in a graph
-    n = nx.number_of_nodes(graph)
+    n = nx.number_of_nodes(grph)
     dis_deg = Counter(degr)
-    # print dis_deg
     x = []
     for key, value in Counter(degr).iteritems():
         y.append(key)
@@ -51,12 +56,15 @@ def summary(graph):
     counts, bins = np.histogram(x, bins=num_bins)
     bins = bins[:-1] + (bins[1] - bins[0])/2
     probs = counts/float(counts.sum())
-    # print probs.sum()
-    # Probability Mass Function
-    plt.bar(bins, probs, 1/num_bins)
-    # plt.show()
-    # print y
-    # print x
+
+    for item in g:
+        print item + " " + g.degree(item)
+    
+    
+# Input: Source Node
+# Output: Edges in depth-first-search
+def formulate(src, grph):
+    print list(nx.dfs_edges(grph, src))
     
 # Input: List of Dictionaries
 # Output: Two Directed Graphs
@@ -90,10 +98,10 @@ def observe(filename):
 
     # Visualize Graph
     G.layout(prog='fdp')
-    G.draw("case/observe.pdf")
+    G.draw("case/directed_graph.png")
     
     # Determine HITs, PageRank, Katz Centrality, Degree Centrality
-    with open("case/observe.csv", "wb") as fh:
+    with open("case/graph_analysis.csv", "wb") as fh:
         # Write header row
         writer=csv.writer(fh)
         writer.writerow(["NodeID", "PageRank","Hub", "KatzCentrality", "DegreeCentrality"])
@@ -107,14 +115,36 @@ def observe(filename):
             writer.writerow([k1,v1,v2,v3,v4])
 
     # Observe with Data Mining
-    df = pd.read_csv('case/observe.csv')
-    df.describe().to_csv("case/observe.txt")
+    df = pd.read_csv('case/graph_analysis.csv')
+    df.describe().to_csv("case/data_mining.txt")
 
-    df.columns = ['PageRank', 'Hub']
-    # plt.scatter(df.PageRank, df.hub)
-    # plt.xlabel('PageRank')
-    # plt.ylabel('Hub')
-        
+    df.columns = ['NodeID', 'PageRank', 'Hub', 'KatzCentrality', 'DegreeCentrality']
+
+    fig = plt.figure(figsize=(12,6))
+    pr = fig.add_subplot(121)
+    hb = fig.add_subplot(122)
+    pr.hist(df.PageRank)
+    pr.set_title("Histogram of PageRank")
+    hb.hist(df.Hub)
+    hb.set_title("Histogram of Hubs")
+    plt.savefig("case/histo_regression_pagerank_hubs.png")
+
+    fig = plt.figure(figsize=(12,6))
+    kc = fig.add_subplot(121)
+    dc = fig.add_subplot(122)
+    kc.hist(df.KatzCentrality)
+    kc.set_title("Histogram of Katz Centrality")
+    dc.hist(df.DegreeCentrality)
+    dc.set_title("Histogram of Degree Centrality")
+    plt.savefig("case/histo_regression_katzcentrality_degcentrality.png")
+    
+    sns.jointplot(x="PageRank", y="Hub", data=df, kind = 'reg',fit_reg= True, size = 7)
+    plt.savefig('case/scatt_regression_pagerank_hubs.png')
+    sns.jointplot(x="KatzCentrality", y="DegreeCentrality", data=df, kind = 'reg',fit_reg=True, size = 7)
+    plt.savefig('case/scatt_regression_katzcentrality_degcentrality.png')
+
+    return g
+    
 # Parse the file
 # Input: file
 # Output: A list of dictionaries
@@ -156,16 +186,14 @@ if __name__ == "__main__":
         sciMthd=raw_input("Choose a Phase: ")
         if sciMthd == "1":
             filename = raw_input("\nEnter Filename: ")
-            observe(filename)
-            # Run Program
-            # Write results to a PDF
-            # Print out location of PDF
+            grph = observe(filename)
         elif sciMthd == "2":
             src = raw_input("\nEnter Source Node of your Hypothesis: ")
-            # Run graph traversal, print to screen
+            formulate(src, grph)
         elif sciMthd == "3":
-            src = raw_input("\nEnter Path of your Hypothesis: ")
-            # Run ProbLog, Print to screen
+            src = raw_input("\nEnter Source Node of your Hypothesis: ")
+            trg = raw_input("\nEnter Targe Node of your Hypothesis: ")
+            evaluate(src, trg, grph)
         elif sciMthd == "4":
             "Print Results"
         elif sciMthd == "5":
