@@ -21,7 +21,25 @@ sound analysis of the evidence.
 
 ### Observe Evidence
 
+In order to observe evidence we rely on data mining, graph theory, and link analysis.
+
+#### Hyperlink-Induced Topic Search (HITS)
+
+In order to determine which pieces of evidence are important to other pieces of evidence. We believe that in determining these pieces will allow inferring the high-level actions taken by the user. The hub value estimates the value by the links to other nodes.
+
+#### PageRank
+
+PageRank is a link analysis algorithm that computes the ranking of nodes in the graph based on the structure of incoming edges. THe PageRank value will identify key pieces of evidence.
+
+#### Data Mining
+
 ### Formulate Hypothesis
+
+The ability to draw conclusive assessment about a case, an examiner to find significant tests to evaluate the simplest hypotheses. Denote a mapping between evidence set E, and hypothesis H.
+
+#### Graph Traversal
+
+Graph traversal is the process of visiting each node in a graph.
 
 ### Evaluate Hypotheses
 
