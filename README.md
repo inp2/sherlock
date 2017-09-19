@@ -47,9 +47,10 @@ Graph traversal is the process of visiting each node in a graph.
 
 ## REQUIREMENTS
 
-You need Python 2.7.
+You need Python 2.7 and 
 
-python 2.7
+#### Ubuntu
+''' apt install python 2.7 python-pip'''
 
 ## Quick Start
 
