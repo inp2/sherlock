@@ -27,7 +27,7 @@ You need Python 2.7
 
 ```pip install -r requirements.txt```
 
-```apt install python 
+```apt install python```
 
 ## Quick Start
 
