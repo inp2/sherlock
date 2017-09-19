@@ -47,8 +47,15 @@ Graph traversal is the process of visiting each node in a graph.
 
 ## REQUIREMENTS
 
-## INSTALL
+You need Python 2.7.
 
-## EXAMPLES
+python 2.7
 
-## REFERENCES
+## Quick Start
+
+## Documentation
+
+Documentation and additional information is available:
+
+![Exploring Digital Evidence with Graph Theory](http://commons.erau.edu/adfsl/2017/papers/9/)
+![Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/default/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf)
