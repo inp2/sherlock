@@ -57,5 +57,5 @@ python 2.7
 
 Documentation and additional information is available:
 
-![Exploring Digital Evidence with Graph Theory](http://commons.erau.edu/adfsl/2017/papers/9/)
-![Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/default/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf)
+![Exploring Digital Evidence with Graph Theory](http://commons.erau.edu/adfsl/2017/papers/9/) <br />
+![Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/default/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf) <br />
