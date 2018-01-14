@@ -1,1 +1,0 @@
-VBoxManage modifyvm "YOUR VM NAME HERE" --nictrace1 on --nictracefile1 <filename>

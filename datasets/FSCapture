@@ -1,7 +1,0 @@
-# Take a snapshot while the machine is running
-
-vboxmanage modifyhd <snapshotfilename>.vmdk --type writethrough
-vboxmanage clonehd <snapshotfilename>.vmdk <newfilename>.vdi -format raw
-
-# Get XML file
-fiwalk <filename>.vdi -x <newfilename>.xml
