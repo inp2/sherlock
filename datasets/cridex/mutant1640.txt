@@ -1,0 +1,4 @@
+Offset(V)     Pid     Handle     Access Type             Details
+---------- ------ ---------- ---------- ---------------- -------
+0x822fdb00   1640       0x88   0x1f0001 Mutant           XMM00000668
+0x81e9d708   1640       0x98   0x1f0001 Mutant           XMR8149A9A8

@@ -1,0 +1,668 @@
+
+Andre' M. DiMino -SemperSecurus
+August 2, 2012
+Cridex Analysis using Volatility
+Update 1 -  August 5, 2012 - located at end of post
+
+Update 2 -  August 7, 2012 - located at end of post
+
+I had read previous analysis reports about Cridex from various sites as M86 Security and Kahu Security. At the time, I filed this under "another banking trojan" to track, and moved on to to other things.  However Cridex once again piqued my interest when I saw an excellent analysis by Kimberly at StopMalvertising.  I took particular attention to her listing of the Cridex C&C servers she observed, as several of these IP blocks were familiar to me. More on this later.   Having obtained the same Cridex sample analyzed by Kimberly,  I was interested to see how Volatility could be used to analyze it.  This Cridex sample had MD5 hash, 734aadd62d0662256a65510271d40048. I executed the sample and dumped the memory for analysis.  A copy of this memory dump is linked at the bottom of this post.
+
+Using the Volatility 'plist' command, we can see a list of the running processes. However it's instructive to use this in conjunction with the 'psscan' command in order to see those processes that have terminated, are unlinked, or hidden.  In this case, no discrepancies between the two commands jump out at me, but I do notice a couple of things.   First, I see a process, reader_sl.exe, PID1640 start exactly at the same time as its parent process, explorer.exe, PID1484.  I see that the parent process ID for explorer.exe is 1464, which is not listed in either 'pslist' or 'psscan'.  reader_sl.exe is a supposedly a safe process, associated with Adobe Speed Launcher, but the launch chain for this seems odd, so I'll keep note of this for now. Next, I see a second wuauclt.exe process start about 15 seconds after the first.  This isn't a major flag, but just something to note.
+
+
+pslist command
+
+psscan command
+
+The next useful Volatility command that I use for malware analysis is the 'connections' and the 'connscan' commands. Again, running both of these will allow you to see variances, as 'connscan' will show artifacts from previous connections.
+
+
+connections & connscan commands
+Note that 'connections' shows that PID 1484, explorer.exe had an active connection to remote IP address 41.168.5.140 on port 8080.  'connscan' shows an artifact of a previous connection by PID 1484 to remote IP address 125.19.103.198, also on port 8080.  A quick 'whois' shows:
+
+41.168.5.140
+netname: NEOTEL
+descr: NEOTEL PTY LTD
+country: ZA
+
+125.19.103.198
+descr: Bharti Tele-Ventures Limited
+descr: NEW DELHI
+country: IN
+
+Next, running 'sockets' and 'sockscan' will show any listening sockets that may have been initiated by a running process. As in 'conscan', 'sockscan' will show any detected artifacts from previous sockets.  In this case, we see that PID 1484, explorer.exe, opened a listening socket on port 1038 approx. 2 minutes after PID 1484 was created.
+
+
+sockets and sockscan commands
+Running the 'malfind' command against our two suspect processes yields the following:
+
+
+
+
+malfind command on PID 1484 & 1640
+In this output, we see that the explorer.exe, PID1484 and reader_sl.exe, PID1640 processes have a PE section located at 0x1460000 and 0x3d0000 respectively.  By using the "-D" switch, 'malfind' can dump those identified segments to a dump directory for further analysis.
+
+We now enumerate the mutant/mutex objects for the two processes under review.  Note that I used the Volatility 'handles' command, with a subtype selection of "Mutant" in order to specifically select the mutant/mutexes associated with PID 1484 and 1640.  The 'mutantscan' command will give additional information such as its signaled state, its client ID, and which thread acquired the mutant.
+
+
+process mutexes for PID 1484 & 1640
+Via some Google queries, we learn that several of these mutex objects have been seen in other malware, notably:
+746bbf3569adEncrypt
+_SHuassist.mtx
+SHIMLIB_LOG_MUTEX
+XMR8149A9A8
+Next, we'll dump the VAD segments of each of these processes, run 'strings',  and look for anything interesting.
+
+
+vaddump command
+
+'strings' output section from PID 1484, explorer.exe
+
+
+'strings' output section from PID 1640, reader_sl.exe
+
+Note the advantage of dumping the VAD segments as opposed to the entire process memory is that you can see which VAD node section the 'strings' hit was located.  In this section, we find a list of banks and financial institutions.   Here is the contents of the Cridex configuration specifically containing references to financial institutions.
+
+
+*treasurypathways.com*
+*CorporateAccounts*
+*weblink.websterbank.com*
+*secure7.onlineaccess1.com*
+*trz.tranzact.org*
+*onlineaccess1.com*
+*secureport.texascapitalbank.com*
+*/Authentication/zbf/k/*
+*ebc_ebc1961*
+*tdbank.com*
+*online.ovcb.com*
+*ebanking-services.com*
+*schwab.com*
+*billmelater.com*
+*chase.com*
+*bankofamerica.com*
+*pnc.com*
+*suntrust.com*
+*wellsfargo.com*
+*ibanking-services.com*
+*bankonline.umpquabank.com*
+*servlet/teller*
+*nsbank.com*
+*securentry.calbanktrust.com*
+*securentry*
+*/Common/SignOn/Start.asp*
+*telepc.net*
+*enterprise2.openbank.com*
+*BusinessAppsHome*
+*global1.onlinebank.com*
+*webexpress*
+*/sbuser/*
+*webcash*
+*firstbanks.com*
+*bxs.com*
+*businesslogin*
+*hbcash.exe*
+*otm.suntrust.com*
+*/inets/*
+*corpACH*
+*/IBWS/*
+*/ibs.*
+*/livewire/*
+*/olbb/*
+*fnfgbusinessonline.enterprisebanker.com*
+*lakecitybank.webcashmgmt.com*
+*/inets/*
+*bob.sovereignbank.com*
+*CLKCCM*
+*directline4biz.com*
+*e-moneyger.com*
+*cashman*
+*securentrycorp.amegybank.com*
+*netteller*
+*onlineserv/CM*
+*nubi*
+*ibs5.secure-banking*
+*ibs.secure-banking*
+*blilk*
+*svbconnect.com*
+*goldleaf*
+*/webcm/*
+*www.amegybank.com/*
+*/wires/*
+*bankbyweb*
+*internet-ebanking.com*
+*treasury.pncbank.com*
+*sso.uboc*
+*cashplus*
+*towernet.capitalonebank.com*
+*nationalcity.com/consultnc*
+*authmaster.nationalcity.com/tmgmt*
+*businessonline.tdbank.com*
+*treasurydirect.tdbank.com*
+*express.53.com/express/logon.action*
+*access.usbank.com*
+*treasury.wamu.com*
+*.associatedbank.com*
+*cashproonline.bankofamerica.com*
+*cib.bankofthewest.com*
+*cmol.bbt.com/auth*
+*bmoharrisprivatebankingonline.com*
+*bnycash.bankofny.com*
+*ifxmanager.bnymellon.com*
+*businessmanager.com/signon*
+*banking.calbanktrust.com*
+*towernet.capitalonebank.com*
+*/cmserver/*
+*.com/K1/*
+*pub/html*
+*businessaccess.citibank.citigroup.com*
+*achieveaccess.citizensbank.com*
+*comerica.com*
+*businessclassonline.compassbank.com*
+*cashanalyzer.com*
+*ebanking-services.com*
+*/ebc_ebc1961/*
+*/cashman/*
+*express.53.com/express/*
+*cbs.firstcitizens.com*
+*banking.firsttennessee.biz*
+*efirstbank.com*
+*treas-mgt.frostbank.com*
+*businessonline.huntington.com*
+*ibbpowerlink.com*
+*access.jpmorgan.com*
+*blilk.com*
+*businessportal.mibank.com*
+*webbankingforbusiness.mandtbank.com*
+*mbachexpress.com*
+*premierview.membersunited.org*
+*cashmanager.mizuhoe-treasurer.com*
+*enternetbank.com*
+*ntrs.com*
+*northerntrust.com*
+*/Common/SignOn/*
+*/CLKCCM/*
+*bankofamerica.com*
+*onlineserv/CM*
+*treasury.pncbank.com*
+*rbs.com/wps/portal/cb/applications*
+*sandyspringbank.com*
+*ssl.selectpayment.com/mp*
+*svbconnect.com*
+*onlinebanking.banksterling.com*
+*businessonline.tdbank.com*
+*passport.texascapitalbank.com*
+*nashvillecitizensbank.com*
+*singlepoint.usbank.com*
+*sso.unionbank.com*
+*commercial.wachovia.com*
+*wcmfd/wcmpw*
+*phcp/servlet*
+*webinfocus.mandtbank.com*
+*wellsoffice.wellsfargo.com*
+*bmomutualfunds.com*
+*/netbnx/*
+*businessbanking.cibc.com*
+*access.rbsm.com/logon*
+*bolb-west.associatedbank.com*
+*bolb-east.associatedbank.com*
+*cashproonline.bankofamerica.com*
+*cib.bankofthewest.com*
+*cmol.bbt.com/auth*
+*bmoharrisprivatebankingonline.com*
+*bnycash.bankofny.com*
+*ifxmanager.bnymellon.com*
+*businessmanager.com/signon*
+*banking.calbanktrust.com*
+*towernet.capitalonebank.com*
+*/cmserver/*
+*.com/K1/*
+*pub/html*
+*businessaccess.citibank.citigroup.com*
+*achieveaccess.citizensbank.com*
+*www8.comerica.com*
+*businessclassonline.compassbank.com*
+*cashanalyzer.com*
+*ebanking-services.com*
+*/ebc_ebc1961/*
+*/cashman/*
+*express.53.com*
+*cbs.firstcitizens.com*
+*banking.firsttennessee.biz*
+*efirstbank.com*
+*treas-mgt.frostbank.com*
+*businessonline.huntington.com*
+*ibbpowerlink.com*
+*access.jpmorgan.com*
+*blilk.com*
+*businessportal.mibank.com*
+*webbankingforbusiness.mandtbank.com*
+*mbachexpress.com*
+*premierview.membersunited.org*
+*cashmanager.mizuhoe-treasurer.com*
+*enternetbank.com*
+*ntrs.com*
+*northerntrust.com*
+*/Common/SignOn/*
+*/CLKCCM/*
+*onlineserv/CM*
+*treasury.pncbank.com*
+*rbs.com/wps/portal/*
+*sandyspringbank.com*
+*ssl.selectpayment.com/mp*
+*svbconnect.com*
+*onlinebanking.banksterling.com*
+*businessonline.tdbank.com*
+*passport.texascapitalbank.com*
+*nashvillecitizensbank.com*
+*/Authentication/zbf/k*
+*singlepoint.usbank.com*
+*sso.unionbank.com*
+*commercial.wachovia.com*
+*wcmfd/wcmpw*
+*phcp/servlet*
+*webinfocus.mandtbank.com*
+*wellsoffice.wellsfargo.com*
+*bmomutualfunds.com*
+*/netbnx/*
+*businessbanking.cibc.com*
+*cibconline.cibc.com*
+*royalbank.com/cgi-bin/rbaccess*
+*access.rbsm.com/logon*
+*scotiaonline.scotiabank.com*
+*scotiaconnect.scotiabank.com*
+*easywebcpo.td.com/waw/idp*
+*boveda.banamex.com.mx*
+*hsbc.com.mx*
+*/IBWS/*
+*CorporateAccounts*
+*securentry*
+*/ach/*
+*/wire/*
+*corpACH*
+*treasurypathways.com*
+*mycorporate.org*
+*ecash.*
+*secure.fnbhutch.com*
+*cnbsec1.*
+*e-moneyger*
+*createWire*
+*createCorpWire*
+*business.netbankerplus.com*
+*secure.fundsxpress.com*
+*firstbanks.com/olb*
+*/CASHplus/*
+*cashman*
+*.onlineaccess1.com*
+*Pres_WA_Wires*
+*onlinencr.com*
+*bankonline.umpquabank.com*
+*globalink.leumiusa.com*
+*my.statestreet.com*
+*site-secure.com/TekPortfolio*
+*inetbanker*
+*secure.ally.com*
+*unitedbankwi.com*
+*hbproxy.exe*
+*/inets/*
+*otm.suntrust.com*
+*cmserver*
+*svbconnect*
+*secure.fsbperkasie.com*
+*scottvalleybank.com*
+*hillsbank.com*
+*vpn1.*
+*/olbb/*
+*cu.com*
+*cu.org*
+*paylinks.cunet.org*
+*1stunitedbankfl*
+*paylinks.cunet.org*
+*achworks.com*
+*bankonline.sboff.com*
+*bankofbermuda.com*
+*tdcommercialbanking*
+*bxs.com*
+*solutions-corporate.com*
+*cbbusinessonline.com*
+*checkgateway*
+*constitutioncorp.org*
+*corporate.epfc.com*
+*epd.uscentral.org*
+*login_business.asp*
+*global-ebanking.com*
+*itinternet.net*
+*mcb-home.com/online*
+*metrobankdirect.com*
+*midatlanticcorp.org*
+*ncms-inc.com*
+*online.1stnb.com*
+*westfield.accounts-in-view.com*
+*secure-eccu.org*
+*secure.1stfedbank.com*
+*securebanking.cbtks.com*
+*secure.dalhartfederal.com*
+*businesslogins.asp*
+*vectrabank.com/busi_bank_00.jsp*
+*springbankconnect.com/views/login/*
+*statebanktx.com/cgi-bin/prosperity.asp*
+*treasurylinkweb.com*
+*web.accessor.com*
+*wtdirect.com*
+*business.macu.com*
+*cencorpcu.com*
+*webinfocus.mandtbank.com*
+*commercialservices.mandtbank.com*
+*commercialservices*
+*/sbuser/*
+*ifxmanager.bankofny.com*
+*commercebusinessdirect.com*
+*corporatebankingweb*
+*comerica.com/businessconnect/*
+*firstbanks.com/olb*
+*ebill.highmark.com*
+*businessonline.huntington.com*
+*businessmanager.com*
+*cib.bankofthewest.com*
+*secure2.umb.com*
+*sso.uboc.com*
+*libertymutualbusinessdirect.com*
+*portfolioonline.metavante.com*
+*scottvalleybank.com*
+*hillsbank.com*
+*authmaster.nationalcity.com*
+*ibbusinessnet.com*
+*ibbpowerlink.com*
+*nbarizona.com/login_business.jsp*
+*online.dollarbank.com*
+*nsbank.com//biz*
+*nsbank.com/biz*
+*banking.calbanktrust.com*
+*/BB/LOGON/*
+*trustmark.openbank.com*
+*businessclassonline.compassbank.com*
+*server14.cey-ebanking.com*
+*enterprise2.openbank.com*
+*wblnk.com*
+*wbsavings.wblnk.com*
+*mybankfirstunited.wblnk.com*
+*sunshinestatefederal.wblnk.com*
+*cashplus*
+*cfgbusinessaccess.com*
+*RBS_Commercial*
+*itreasury.amsouth.com*
+*nfbconnect.com*
+*lionbank.com*
+*ecash.fsbnm.com*
+*bscincky.com*
+*pacificenterprisebank.com*
+*westernbankcash.com*
+*ecash.mbvtonline.com*
+*cashman.arvest.com*
+*westernetbank.com*
+*webcashmgmt.com*
+*commercialservices.mandtbank.com*
+*commercialservices*
+*moneymanagergps.com*
+*usgateway2.rbs.com*
+*top.capitalonebank.com*
+*otm.suntrust.com*
+*suntrust.com*
+*onlinebanker.usbank.com*
+*onlinebanker*
+*bbo.1stsource.com*
+*lasallebank.com/business_solutions.html*
+*business_solutions*
+*anb.portalvault.com*
+*trustweb.com*
+*secure.bancinternetgroup.com*
+*onlinebank.wesbanco.com*
+*online.wilberbank.com*
+*northbaybancorp.com*
+*internetbanker.cc*
+*auth.umb.com*
+*merchantsbk.inetbanker.com*
+*bizcurrency.com*
+*metrobankdirect.com/corp_login_page.asp*
+*metrobankdirect.com*
+*lakelandbank.com*
+*chase.com*
+*etrade.com*
+*paypal.com*
+*schwab.com*
+*ameritrade.com*
+*santander.co.uk*
+*ffinonline.com*
+*exness.com*
+*suncorpbank.com.au*
+*hsbc.co.uk*
+*ablv.com*
+*accessbankplc.com*
+*alphabank.com.cy*
+*baltikums.com*
+*baltikums.eu*
+*banesco.com.pa*
+*bankaustria.at*
+*banknet.lv*
+*bankofcyprus.com*
+*bobibanking.com*
+*butterfieldonline.ky*
+*cimbanque.net*
+*cs.directnet.com*
+*directnet.com*
+*danskebanka.lv*
+*ebank.laiki.com*
+*ebank.rcbcy.com*
+*ebemo.bemobank.com*
+*e-norvik.lv*
+*eurobankefg.com*
+*eurobankefg.com.cy*
+*ekp.lv*
+*fbmedirect.com*
+*hblibank.com*
+*hellenicnetbanking.com*
+*hiponet.lv*
+*hkbea*
+*ibanka.seb.lv*
+*ib.baltikums.com*
+*geonline.lv*
+*ib.dnb.lv*
+*bib.lv*
+*ib.snoras.com*
+*i-linija.lt*
+*loyalbank.com*
+*marfinbank.com.cy*
+*multinetbank.eu*
+*nordea.com*
+*secure.ltbbank.com*
+*secure.ltblv.com*
+*swedbank.lv*
+*norvik.lv*
+*online.alphabank.com.cy*
+*online.citadele.lv*
+*online.lkb.lv*
+*online.ibl.com.lb*
+*online-offshore.lloydstsb.com*
+*online.usb.com.cy*
+*parex.lv*
+*handelsbanken.lv*
+*pastabanka.lv*
+*piraeusbank.com*
+*lv.unicreditbanking.net*
+*privatbank.lv*
+*rbscoutts.com*
+*rbsidigital.com*
+*rbsiibanking.com*
+*rbsm.com*
+*rbworld.lv*
+*rcbcy.com*
+*rietumu.lv*
+*s2b.*
+*s2b.standardchartered.com*
+*sampopank*
+*sampopank.ee*
+*seb.ee*
+*seb.lt*
+*seb.lv*
+*secure.currency.lloydstsb-offshore.com*
+*snoras.com*
+*tbb.ee*
+*trast.net*
+*trastnet.tkb.com.cy*
+*ub.lt*
+*valartis.at*
+*valartis.li*
+*vpbank.com*
+*ubs.com*
+*acbtz.com*
+*azaniabank.co.tz*
+*bankm.co.tz*
+*dtbafrica.com*
+*habibbank*
+*BusinessAppsHome*
+*nab.com.au*
+*us.hsbc.com*
+*online.citibank.com/*
+*BalanceHome*
+*PassmarkChallenge*
+*ktt.key.com*
+*cm.netteller.com*
+*/Web_Bank*
+*jqueryaddonsv2.js*
+*account.authorize.net/*
+<head*>
+*chase.com*
+*chaseonline.chase.com/MyAccounts.*
+*onlinebanking.tdbank.com/*getAccts.asp*
+*secure.accurint.com/app/bps/mai*
+*ebc_ebc1961*
+*saf.bankofamerica.com/login/*.go
+*bankofamerica.com/myacounts/*
+*/cmserver/welcome/default/verify.cfm*
+*netteller.com/login2008/Authentication/Views/Login.aspx*
+*wellsoffice.wellsfargo.com/ceoportal/signon/*
+*singlepoint.usbank.com/cs70_banking/logon/*
+*business-eb.ibanking-services.com/K1/*
+*comerica.com*
+*express.53.com/express/*
+*treasury.pncbank.com/portal/esec/*
+*access.jpmorgan.com/appmanager/jpmalogonportal/*
+*businessonline.tdbank.com/corporatebankingweb/core/*
+*cashanalyzer.com*
+*cashproonline.bankofamerica.com/AuthenticationFrameworkWeb/cpo/login/public/loginMain.faces*
+*banking.calbanktrust.com/*
+*treas-mgt.frostbank.com/rdp/cgi-bin/*
+*businessonline.huntington.com/bolhome/*
+*businessaccess.citibank.citigroup.com/cbusol/*
+*blilk.com/Core/Authentication/*
+*/wcmfd/wcmpw/*
+*server*.cey-ebanking.com/CLKCCM/*/passmark/*
+*securentrycorp.*/Authentication/zbf/k/*
+*ebanking-services.com*
+*bnycash.bankofny.com*
+*efirstbank.com*
+*.web-access.com/*
+*wired*.businessmanager.com/signon/*
+*businessportal.mibank.com/oracleAccessManager/securid-forms-adforest/*
+*/Common/SignOn/*
+*commercial.wachovia.com/Online/Financial/Business/*
+*premierview.alloyacorp.org*
+*www.enternetbank.com*
+*nashvillecitizensbank.com/olbb/*
+*achieveaccess.citizensbank.com/exchange/*
+*cashmanager.mizuhoe-treasurer.com/mz/servlet/*
+*banking.firsttennessee.biz/servlet/ftb/*
+*cbs.firstcitizens.com/cb/servlet/cb/*
+*associatedbank.com*
+*secure.fundsxpress.com/piles/*
+*usgateway*.rbs.com/wps/portal/cb/applications*
+*svbconnect.com/useraccess*
+*ntrs.com*
+*cib.bankofthewest.com*
+*sso.unionbank.com/obc/forms/*
+*webbankingforbusiness.mandtbank.com/*
+*ifxmanager.bnymellon.com/pw/pwserv/*
+*/cashman/*
+*sterlingwires.com*
+*webcmpr.bancopopular.com/K1/*
+*trz.tranzact.org/LogonOTP.aspx*
+*tdcommercialbanking.com/WBB/*
+*secureport.texascapitalbank.com/*
+*wirexchange.goxroads.com/wx/*
+*/phcp/servlet/*
+*webinfocus.mandtbank.com/mandt/cgi-bin/*
+*svbconnect.com/security*
+*northerntrust.com*
+
+
+In addition to the list above, examining these VAD dumps also shows HTML code referencing or representing web pages of various financial organizations.  The code seems to indicate that these sections are part of the web injection code that is used to obtain personal information from the banking customer.  In my test of Cridex, I did not launch a web browser or continue additional interaction with my infected host.  If I had visited a URL containing these strings, it is believed that Cridex would attempt to log or capture my input, and redirect that personal information back to the controller.
+
+While we're looking for strings, let's see what shows up for the IP addresses 41.168.5.140 & 125.19.103.198 that were seen in the Volatility "connscan" command.
+
+
+
+Searching for the directory path after the IP addresses gives us another related IP address, 188.40.0.138:
+
+
+So via various string searches and some grepping in the VAD dump directory for PID1484 & PID1640 we find these IP addresses of interest:
+190.81.107.70
+41.168.5.140
+85.214.204.32
+210.56.23.100
+211.44.250.173
+125.19.103.198
+188.40.0.138
+Maltego lets me draw a pretty picture of the IPs, country of registration, and ASN.
+
+
+Cridex IP addresses, ASN, and country of registration.
+Doing some additional research, I noted that at one time or another, several domain names (now suspended) utilized all of the above listed Cridex IPs (except for 188.40.0.138). In fact, these domains each utilized the same 11 to 14 IP addresses, including the Cridex IPs for their DNS "A" records during their brief activity.  Looking at the 'whois' for a sample of these domains shows an entirely different set of IPs used for their NS records... but I digress.
+
+
+
+domain:        VALIDATORONMEE.RU
+nserver:       ns1.validatoronmee.ru. 62.213.64.161
+nserver:       ns2.validatoronmee.ru. 195.62.52.69
+nserver:       ns3.validatoronmee.ru. 62.76.191.172
+nserver:       ns4.validatoronmee.ru. 41.66.137.155
+nserver:       ns5.validatoronmee.ru. 83.170.91.152
+nserver:       ns6.validatoronmee.ru. 85.214.204.32
+state:         REGISTERED, NOT DELEGATED, UNVERIFIED
+person:        Private Person
+registrar:     NAUNET-REG-RIPN
+admin-contact: https://client.naunet.ru/c/whoiscontact
+created:       2012.04.10
+paid-till:     2013.04.10
+
+domain:        POLUICENOTGO.RU
+nserver:       ns1.poluicenotgo.ru. 62.76.41.3
+nserver:       ns2.poluicenotgo.ru. 62.213.64.161
+nserver:       ns3.poluicenotgo.ru. 195.88.242.10
+nserver:       ns4.poluicenotgo.ru. 41.66.137.155
+nserver:       ns5.poluicenotgo.ru. 83.170.91.152
+nserver:       ns6.poluicenotgo.ru. 85.214.204.32
+state:         REGISTERED, NOT DELEGATED, UNVERIFIED
+person:        Private Person
+registrar:     NAUNET-REG-RIPN
+admin-contact: https://client.naunet.ru/c/whoiscontact
+created:       2012.04.15
+paid-till:     2013.04.15
+
+domain:        VITALITYSOMER.RU
+nserver:       ns1.vitalitysomer.ru. 62.213.64.161
+nserver:       ns2.vitalitysomer.ru. 195.62.52.69
+nserver:       ns3.vitalitysomer.ru. 62.76.191.172
+nserver:       ns4.vitalitysomer.ru. 41.66.137.155
+nserver:       ns5.vitalitysomer.ru. 83.170.91.152
+nserver:       ns6.vitalitysomer.ru. 85.214.204.32
+state:         REGISTERED, NOT DELEGATED, UNVERIFIED
+person:        Private Person
+registrar:     NAUNET-REG-RIPN
+admin-contact: https://client.naunet.ru/c/whoiscontact
+created:       2012.04.10
+paid-till:     2013.04.10
+
+
+There is much more that you can do with this Cridex memory dump. For example, you can use 'apihooks' on the two processes, then drop into 'volshell' and browse through the pages. You could find the loaded DLLs, or extract a process of interest.
+
+For your added research, I've posted a link to the Cridex memory image below.  I didn't extract other forensic objects for this sample, but as I mentioned in my last post, I plan to do that for other samples going forward.
