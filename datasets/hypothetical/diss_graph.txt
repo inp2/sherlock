@@ -1,5 +1,6 @@
-explorer.exe -> paint.exe
+
 explorer.exe -> firefox.exe
+firefox.exe -> paint.exe
 paint.exe -> 21.524.30.97
 paint.exe -> 103.41.299.18
 paint.exe -> 202.209.18.81
