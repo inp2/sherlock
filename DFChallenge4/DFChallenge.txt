@@ -1,0 +1,29 @@
+The Case:
+A company’s web server has been breached through their website. Our team arrived just in time to take a forensic image of the running system and its memory for further analysis. The files can be found below:
+1- System Image: here
+2- System Memory: here
+3- Hashes: here
+4- Passwords = DFChallenge@s4a
+
+To successfully solve this challenge, a report with answers to the tasks below is required:
+1- What type of attacks has been performed on the box?
+2- How many users has the attacker(s) added to the box, and how were they added?
+3- What leftovers (files, tools, info, etc) did the attacker(s) leave behind? (assume our team arrived in time and the attacker(s) couldn’t clean & cover their tracks)
+4- What software has been installed on the box, and were they installed by the attacker(s) or not?
+5- Using memory forensics, can you identify the type of shellcode used?
+6- What is the timeline analysis for all events that happened on the box?
+7- What is your hypothesis for the case, and what is your approach in solving it?
+8- Is there anything else you would like to add?
+
+Bonus Question:
+what are the directories and files, that have been added by the attacker(s)? List all with proof.
+
+Important Note:
+The case MUST be solved using open source and free tools only (NO EnCase, FTK, etc) are allowed.
+
+Contact:
+Send your solution to: challenges [at] security4arabs [dot] net
+
+Good luck.
+
+This challenge was originally prepared for our Security4Arabs visitors. The original post (Arabic version) could be found here: here

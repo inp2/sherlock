@@ -1,0 +1,5 @@
+1660 -> explorer.exe
+explorer.exe -> VMwareUser.exe
+explorer.exe -> VMwareTray.exe
+explorer.exe -> firefox.exe
+firefox.exe -> AcroRd32.exe
