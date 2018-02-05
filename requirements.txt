@@ -1,9 +1,0 @@
-networkx
-scipy
-reportlab
-matplotlib
-pydot
-pygraphviz
-numpy
-pandas
-seaborn
