@@ -1,18 +1,17 @@
-explorer.exe -> cmd.exe
-0 -> System
-svchost.exe -> wuauclt.exe
-svchost.exe -> dwm.exe
+
 676 -> explorer.exe
-xampp-control.e -> httpd.exe
-explorer.exe -> VBoxTray.exe
-explorer.exe -> cmd.exe
+explorer.exe -> xampp-control.e
 explorer.exe -> FTKImager.exe
+FTKImager.exe -> explorer.exe
+explorer.exe -> cmd.exe
+xampp-control.e -> httpd.exe
+httpd.exe -> httpd.exe
+xampp-control.e -> FileZillaServer
+xampp-control.e -> mysqld.exe
+0 -> System
+System -> 192.168.56.1
 services.exe -> svchost.exe
 services.exe -> msdtc.exe
-xampp-control.e -> mysqld.exe
-explorer.exe -> xampp-control.e
-xampp-control.e-> FileZillaServer
-httpd.exe -> httpd.exe
 svchost.exe -> taskeng.exe
 services.exe -> svchost.exe
 services.exe -> svchost.exe
@@ -28,7 +27,6 @@ services.exe -> svchost.exe
 services.exe -> svchost.exe
 services.exe -> svchost.exe
 svchost.exe -> taskeng.exe
-System -> smss.exe
 516 -> winlogon.exe
 services.exe -> svchost.exe
 472 -> csrss.exe
@@ -63,4 +61,9 @@ csrss.exe -> cmd17
 csrss.exe -> cmd18
 csrss.exe -> cmd18
 csrss.exe -> cmd2
-
+svchost.exe -> *:*
+httpd.exe -> 0.0.0.0:0
+services.exe -> 0.0.0.0:0
+mysqld.exe -> 0.0.0.0:0
+mysqld.exe -> :::0
+System -> smss.exe

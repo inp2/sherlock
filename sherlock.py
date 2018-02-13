@@ -14,6 +14,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from matplotlib import rcParams
 from sklearn import cluster
+from collections import defaultdict
 
 import csv
 import os
@@ -109,6 +110,21 @@ def observe(filename):
         writer.writerow(["NodeID", "PageRank","Hub", "KatzCentrality", "DegreeCentrality"])
         # Calculate values of graph
         pr = nx.pagerank(g)
+        degr = []
+        x = []
+        y = []
+        # Get the degree of each node
+        for node in g:
+            degr.append(g.degree(node))
+        # Get the number of nodes in a graph
+        n = nx.number_of_nodes(g)
+        dis_deg = Counter(degr)
+        for key, value in Counter(degr).iteritems():
+            y.append(key)
+            x.append((float(value)/float(n)))
+        print y
+        print x
+    # Please use problog to determine confidence score
         hits,au = nx.hits(g)
         adc = nx.katz_centrality(g)
         sorted_x = sorted(adc.items(), key=operator.itemgetter(1))
