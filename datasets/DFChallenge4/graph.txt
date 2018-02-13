@@ -57,9 +57,6 @@ csrss.exe -> cmd13
 csrss.exe -> cmd14
 csrss.exe -> cmd15
 csrss.exe -> cmd16
-csrss.exe -> cmd17
-csrss.exe -> cmd18
-csrss.exe -> cmd18
 csrss.exe -> cmd2
 svchost.exe -> *:*
 httpd.exe -> 0.0.0.0:0
