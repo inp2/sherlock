@@ -1,0 +1,5 @@
+
+explorer.exe -> 41.168.5.140
+explorer.exe -> 125.19.103.198
+explorer.exe -> reader_sl.exe
+1464 -> explorer.exe
