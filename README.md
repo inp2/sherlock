@@ -33,11 +33,20 @@ You need Python 2.7
 
 ```python sherlock.py```
 
-Use example.txt as an example.
+Output:
+
+1. Observe Evidence
+2. Formaulate Hypotheses
+3. Evaluate Hypotheses
+4. Exit
+
+Choose a Phase: ```1```
+
+``` Enter 1 into the prompt```
 
 ## Documentation
 
 Documentation and additional information is available:
 
-![Exploring Digital Evidence with Graph Theory](http://commons.erau.edu/adfsl/2017/papers/9/) <br />
+![Exploring Digital Evidence with Graph Theory](https://commons.erau.edu/cgi/viewcontent.cgi?article=1374&context=adfsl) <br />
 ![Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/default/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf) <br />
