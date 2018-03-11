@@ -1,8 +1,11 @@
-# Sherlock
+# Sherlock: A Digital Forensic Analysis Toolkit
 
 ## INTRODUCTION
 
-Sherlock is an open-source forensic tookit for analyzing the
+![The Digital Forensic Investigative Process](http://4.bp.blogspot.com/_Jgk3LbZWY8I/TL4_gGa186I/AAAAAAAAAIU/P4V8Y9lbZFo/s1600/nist+process.jpg "The Digital Forensic Investigative Process")
+
+The analysis phase of the digital forensic process is very
+complex. Sherlock is an open-source forensic tookit for analyzing the
 relationships among digital evidence. Sherlock enables
 investigators to identify, correlate and reason about evidence.
 
