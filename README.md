@@ -1,5 +1,13 @@
 # Sherlock: A Digital Forensic Analysis Toolkit
 
+### Authors
+
+[Imani Palmer] (imanipalmer.com)
+
+Benjamin Pollack
+
+Young Li
+
 ## INTRODUCTION
 
 ![The Digital Forensic Investigative Process](http://4.bp.blogspot.com/_Jgk3LbZWY8I/TL4_gGa186I/AAAAAAAAAIU/P4V8Y9lbZFo/s1600/nist+process.jpg "The Digital Forensic Investigative Process")
