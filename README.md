@@ -110,5 +110,5 @@ Done!
 
 Documentation and additional information is available:
 
-![Exploring Digital Evidence with Graph Theory](https://commons.erau.edu/cgi/viewcontent.cgi?article=1374&context=adfsl) <br />
+[Exploring Digital Evidence with Graph Theory](https://commons.erau.edu/cgi/viewcontent.cgi?article=1374&context=adfsl) <br />
 ![Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/default/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf) <br />
