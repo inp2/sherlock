@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 from networkx.drawing.nx_pydot import write_dot
 from networkx.drawing.nx_agraph import graphviz_layout
-from collections import Counter
+from collections import Counter # builtin
 from scipy import stats
 from scipy.stats import norm
 from reportlab.lib.pagesizes import letter
@@ -14,12 +14,12 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from matplotlib import rcParams
 from sklearn import cluster
-from collections import defaultdict
+from collections import defaultdict # builtin
 
-import csv
-import os
-import operator
-import sys
+import csv # builtin
+import os # builtin
+import operator # builtin
+import sys # builtin
 import pydot
 import sklearn
 
