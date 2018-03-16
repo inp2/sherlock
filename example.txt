@@ -3,7 +3,7 @@ WmiPrvSE.exe -> explorer.exe
 explorer.exe -> firefox.exe
 explorer.exe -> AcroRd32.exe
 AcroRd32.exe -> notepad.exe
-AcroRd32.exe -> 192.168.1.115:4455
-firefox.exe -> 23.209.190.51:80
-firefox.exe -> 54.201.155.11:443
+AcroRd32.exe -> 192.168.1.115
+firefox.exe -> 23.209.190.51
+firefox.exe -> 54.201.155.11
 firefox.exe -> Dropbox

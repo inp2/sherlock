@@ -88,8 +88,8 @@ Enter Source Node of your Hypothesis: ```explorer.exe```
 
 Output:
 
-[('explorer.exe', 'AcroRd32.exe'), ('AcroRd32.exe', 'notepad.exe'), ('AcroRd32.exe', '192.168.1.115:4455')]
-[('explorer.exe', 'firefox.exe'), ('firefox.exe', 'Dropbox'), ('firefox.exe', '54.201.155.11:443'), ('firefox.exe', '23.209.190.51:80')]
+[('explorer.exe', 'AcroRd32.exe'), ('AcroRd32.exe', 'notepad.exe'), ('AcroRd32.exe', '192.168.1.115')]
+[('explorer.exe', 'firefox.exe'), ('firefox.exe', 'Dropbox'), ('firefox.exe', '54.201.155.11'), ('firefox.exe', '23.209.190.51')]
 
 This is a link of paths in the graph, for example (explorer.exe - AcroRd32.exe - notepad.exe), means GUI opened a PDF document and opened notepad application.
 
@@ -108,7 +108,7 @@ Enter Target Node of your Hypothesis: ```192.168.1.115```
 
 explorer.exe 0.2222222
 AcroRd32.exe 0.2222222
-192.168.1.115:4455 0.6666667
+192.168.1.115 0.6666667
 
 This are the likelihoods for each individual piece of evidence.
 
