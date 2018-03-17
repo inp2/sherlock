@@ -1,0 +1,13 @@
+
+1660 -> explorer.exe
+explorer.exe -> VMwareUser.exe
+explorer.exe -> VMwareTray.exe
+explorer.exe -> firefox.exe
+firefox.exe -> AcroRd32.exe
+firefox.exe -> 212.150.164.203:80
+firefox.exe -> 127.0.0.1:1169
+firefox.exe -> 66.249.91.103:80
+firefox.exe -> 127.0.0.1:1168
+firefox.exe -> 66.249.90.104:80
+AcroRd32.exe -> 212.159.164.203:80
+212.159.164.203 -> bankserver

@@ -15,7 +15,6 @@ from reportlab.lib.styles import getSampleStyleSheet
 from matplotlib import rcParams
 from sklearn import cluster
 from collections import defaultdict
-from NetworkxD3 import simpleNetworkx
 
 import csv
 import os
@@ -90,7 +89,10 @@ def builder(glst):
 #         Degree Centrality, Katz Centrality
 #         TXT File - Data Mining Results
 # Location: case
-def observe(filename):  
+def observe(filename):
+    # Make a folder
+    os.makedirs("case")
+    
     # Parse the file
     glst = parser(filename)
 
@@ -98,9 +100,8 @@ def observe(filename):
     g, G = builder(glst)
 
     # Visualize Graph
-    simpleNetworkx(G)
-    # G.layout(prog='fdp')
-    # G.draw("case/directed_graph.png")
+    G.layout(prog='fdp')
+    G.draw("case/directed_graph.png")
     
     # Determine HITs, PageRank, Katz Centrality, Degree Centrality
     with open("case/graph_analysis.csv", "wb") as fh:
@@ -191,5 +192,27 @@ def directed(graph_list):
     return dg
 
 if __name__ == "__main__":
-    observe('example.txt')
-     
+    sciMthd=True
+    while sciMthd:
+        print("""
+        1. Observe Evidence
+        2. Formulate Hypotheses
+        3. Evaluate Hypotheses
+        4. Exit
+        """)
+        sciMthd=raw_input("Choose a Phase: ")
+        if sciMthd == "1":
+            filename = raw_input("\nEnter Filename: ")
+            grph = observe(filename)
+        elif sciMthd == "2":
+            src = raw_input("\nEnter Source Node of your Hypothesis: ")
+            formulate(src, grph)
+        elif sciMthd == "3":
+            src = raw_input("\nEnter Source Node of your Hypothesis: ")
+            trg = raw_input("\nEnter Targe Node of your Hypothesis:\n")
+            evaluate(src, trg, grph)
+        elif sciMthd == "4":
+            print "\nExit"
+            break
+        else:
+            print "\nUnknown Option Selected!"
