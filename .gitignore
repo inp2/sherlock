@@ -29,3 +29,10 @@ static/yarn-debug.log*
 static/yarn-error.log*
 
 # # # # BACK END # # # # 
+
+# # # # EDITOR SPECIFIC # # # #
+# vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
