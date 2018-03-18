@@ -1,8 +1,31 @@
+# business logic
 *.py~
 *.vmem
 *.pyc
 *.raw
 README~
 case/
-
 venv
+
+# # # # FRONT END # # # # 
+# dependencies
+static/node_modules
+
+# testing
+static/coverage
+
+# production
+static/build
+
+# misc
+static/.DS_Store
+static/.env.local
+static/.env.development.local
+static/.env.test.local
+static/.env.production.local
+
+static/npm-debug.log*
+static/yarn-debug.log*
+static/yarn-error.log*
+
+# # # # BACK END # # # # 
