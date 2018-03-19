@@ -4,3 +4,9 @@
   background-color: #222;
   color: #e8e9ea;
 }
+
+img {
+    position:absolute;
+    left:0px;
+    top:0px;
+}
