@@ -1,7 +1,12 @@
 backports.functools-lru-cache==1.5
+click==6.7
 cycler==0.10.0
 decorator==4.2.1
+Flask==0.12.2
+itsdangerous==0.24
+Jinja2==2.10
 kiwisolver==1.0.1
+MarkupSafe==1.0
 matplotlib==2.2.0
 networkx==2.1
 numpy==1.14.2
@@ -19,3 +24,4 @@ seaborn==0.8.1
 six==1.11.0
 sklearn==0.0
 subprocess32==3.2.7
+Werkzeug==0.14.1
