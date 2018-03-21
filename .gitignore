@@ -29,6 +29,15 @@ static/yarn-debug.log*
 static/yarn-error.log*
 
 # # # # BACK END # # # # 
+# Byte-compiled / optimized / DLL files
+server/__pycache__/
+
+# Flask stuff:
+server/instance/
+server/.webassets-cache
+
+# Environments
+server/venv/
 
 # # # # EDITOR SPECIFIC # # # #
 # vim

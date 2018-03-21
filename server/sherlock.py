@@ -156,7 +156,7 @@ def observe(filename):
     dc.set_title("Histogram of Degree Centrality")
     plt.savefig("case/histo_regression_katzcentrality_degcentrality.png")
     
-    sns.jointplot(x="PageRank", y="Hub", data=df, kind = 'reg',fit_reg= True, size = 7)
+    sns.jointplot(x="PageRank", y="Hub", data=df, kind = 'reg',fit_reg= True, size = 7) # TODO: this line raises an error!
     plt.savefig('case/scatt_regression_pagerank_hubs.png')
     sns.jointplot(x="KatzCentrality", y="DegreeCentrality", data=df, kind = 'reg',fit_reg=True, size = 7)
     plt.savefig('case/scatt_regression_katzcentrality_degcentrality.png')
