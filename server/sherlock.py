@@ -2,18 +2,6 @@
 from networkx.drawing.nx_pydot import write_dot
 from networkx.drawing.nx_agraph import graphviz_layout
 from collections import Counter # builtin
-from scipy import stats
-from scipy.stats import norm
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.units import inch, cm
-from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4, inch, landscape
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
-from reportlab.lib.styles import getSampleStyleSheet
-from matplotlib import rcParams
-from sklearn import cluster
 from collections import defaultdict # builtin
 
 import csv # builtin
@@ -28,8 +16,6 @@ import matplotlib.pyplot as plt
 import pygraphviz as pgv
 import numpy as np
 import pandas as pd
-import scipy.stats as stats
-import seaborn as sns
 
 # Input: Source Node, Target Node, Graph
 # Output: Confidence Score of Hypothesis
@@ -156,11 +142,6 @@ def observe(filename):
     dc.set_title("Histogram of Degree Centrality")
     plt.savefig("case/histo_regression_katzcentrality_degcentrality.png")
     
-    sns.jointplot(x="PageRank", y="Hub", data=df, kind = 'reg',fit_reg= True, size = 7) # TODO: this line raises an error!
-    plt.savefig('case/scatt_regression_pagerank_hubs.png')
-    sns.jointplot(x="KatzCentrality", y="DegreeCentrality", data=df, kind = 'reg',fit_reg=True, size = 7)
-    plt.savefig('case/scatt_regression_katzcentrality_degcentrality.png')
-
     return g
     
 # Parse the file
