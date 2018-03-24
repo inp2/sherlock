@@ -42,6 +42,8 @@ You need Python 2.7
 #### Ubuntu
 ```apt install python-pip python-sklearn ```
 
+```apt install graphviz libgraphviz-dev pkg-config ```
+
 ```pip install -r requirements.txt```
 
 ```apt install python```
