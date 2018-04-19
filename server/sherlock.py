@@ -12,6 +12,8 @@ import pydot
 import sklearn
 
 import networkx as nx
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pygraphviz as pgv
 import numpy as np
