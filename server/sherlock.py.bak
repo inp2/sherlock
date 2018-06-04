@@ -1,9 +1,4 @@
 #!/usr/bin/env python2.7
-from __future__ import division
-from builtins import zip
-from builtins import str
-from builtins import input
-#from past.utils import old_div
 from networkx.drawing.nx_pydot import write_dot
 from networkx.drawing.nx_agraph import graphviz_layout
 from collections import Counter # builtin
@@ -29,8 +24,8 @@ def evaluate(src, trg, grph):
     if nx.has_path(grph, src, trg):
         g = nx.shortest_path(grph, source=src, target=trg)
     else:
-        print ("path does not exist")
-
+        print "path does not exist"
+        
     degr = []
     x = []
     y = []
@@ -41,25 +36,25 @@ def evaluate(src, trg, grph):
     n = nx.number_of_nodes(grph)
     dis_deg = Counter(degr)
     x = []
-    for key, value in Counter(degr).items():
+    for key, value in Counter(degr).iteritems():
         y.append(key)
-        x.append((old_div(float(value),float(n))))
+        x.append((float(value)/float(n)))
     num_bins = 50
     counts, bins = np.histogram(x, bins=num_bins)
-    bins = bins[:-1] + old_div((bins[1] - bins[0]),2)
-    probs = old_div(counts,float(counts.sum()))
+    bins = bins[:-1] + (bins[1] - bins[0])/2
+    probs = counts/float(counts.sum())
 
     for item in g:
         dg = grph.degree(item)
         num = y.index(dg)
-        print (item + " " + str(x[num]))
+        print item + " " + str(x[num])
     # Please use problog to determine confidence score
-
+    
 # Input: Source Node
 # Output: Edges in depth-first-search
 def formulate(src, grph):
-    print (list(nx.dfs_edges(grph, src)))
-
+    print list(nx.dfs_edges(grph, src))
+    
 # Input: List of Dictionaries
 # Output: Two Directed Graphs
 def builder(glst):
@@ -83,7 +78,7 @@ def builder(glst):
 def observe(filename):
     # Make a folder
     os.makedirs("case")
-
+    
     # Parse the file
     glst = parser(filename)
 
@@ -93,7 +88,7 @@ def observe(filename):
     # Visualize Graph
     G.layout(prog='fdp')
     G.draw("case/directed_graph.png")
-
+    
     # Determine HITs, PageRank, Katz Centrality, Degree Centrality
     with open("case/graph_analysis.csv", "wb") as fh:
         # Write header row
@@ -110,17 +105,17 @@ def observe(filename):
         # Get the number of nodes in a graph
         n = nx.number_of_nodes(g)
         dis_deg = Counter(degr)
-        for key, value in Counter(degr).items():
+        for key, value in Counter(degr).iteritems():
             y.append(key)
-            x.append((old_div(float(value),float(n))))
-        print (y)
-        print (x)
+            x.append((float(value)/float(n)))
+        print y
+        print x
     # Please use problog to determine confidence score
         hits,au = nx.hits(g)
         adc = nx.katz_centrality(g)
-        sorted_x = sorted(list(adc.items()), key=operator.itemgetter(1))
+        sorted_x = sorted(adc.items(), key=operator.itemgetter(1))
         dc = nx.degree_centrality(g)
-        for (k1,v1), (k2,v2), (k3,v3), (k4,v4) in zip(list(pr.items()), list(hits.items()), list(adc.items()), list(dc.items())):
+        for (k1,v1), (k2,v2), (k3,v3), (k4,v4) in zip(pr.items(), hits.items(), adc.items(), dc.items()):
             writer.writerow([k1,v1,v2,v3,v4])
 
     # Observe with Data Mining
@@ -146,9 +141,9 @@ def observe(filename):
     dc.hist(df.DegreeCentrality)
     dc.set_title("Histogram of Degree Centrality")
     plt.savefig("case/histo_regression_katzcentrality_degcentrality.png")
-
+    
     return g
-
+    
 # Parse the file
 # Input: file
 # Output: A list of dictionaries
@@ -186,19 +181,19 @@ if __name__ == "__main__":
         3. Evaluate Hypotheses
         4. Exit
         """)
-        sciMthd=input("Choose a Phase: ")
+        sciMthd=raw_input("Choose a Phase: ")
         if sciMthd == "1":
-            filename = input("\nEnter Filename: ")
+            filename = raw_input("\nEnter Filename: ")
             grph = observe(filename)
         elif sciMthd == "2":
-            src = input("\nEnter Source Node of your Hypothesis: ")
+            src = raw_input("\nEnter Source Node of your Hypothesis: ")
             formulate(src, grph)
         elif sciMthd == "3":
-            src = input("\nEnter Source Node of your Hypothesis: ")
-            trg = input("\nEnter Targe Node of your Hypothesis:\n")
+            src = raw_input("\nEnter Source Node of your Hypothesis: ")
+            trg = raw_input("\nEnter Targe Node of your Hypothesis:\n")
             evaluate(src, trg, grph)
         elif sciMthd == "4":
-            print ("\nExit")
+            print "\nExit"
             break
         else:
-            print ("\nUnknown Option Selected!")
+            print "\nUnknown Option Selected!"
