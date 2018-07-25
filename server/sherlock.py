@@ -1,8 +1,10 @@
 #!/usr/bin/env python2.7
+
 from networkx.drawing.nx_pydot import write_dot
 from networkx.drawing.nx_agraph import graphviz_layout
 from collections import Counter # builtin
 from collections import defaultdict # builtin
+
 
 import csv # builtin
 import os # builtin
@@ -17,6 +19,9 @@ import pygraphviz as pgv
 import numpy as np
 import pandas as pd
 
+from PAFunc import testworks, parseComm
+
+
 # Input: Source Node, Target Node, Graph
 # Output: Confidence Score of Hypothesis
 def evaluate(src, trg, grph):
@@ -25,7 +30,7 @@ def evaluate(src, trg, grph):
         g = nx.shortest_path(grph, source=src, target=trg)
     else:
         print "path does not exist"
-        
+
     degr = []
     x = []
     y = []
@@ -49,12 +54,12 @@ def evaluate(src, trg, grph):
         num = y.index(dg)
         print item + " " + str(x[num])
     # Please use problog to determine confidence score
-    
+
 # Input: Source Node
 # Output: Edges in depth-first-search
 def formulate(src, grph):
     print list(nx.dfs_edges(grph, src))
-    
+
 # Input: List of Dictionaries
 # Output: Two Directed Graphs
 def builder(glst):
@@ -65,8 +70,8 @@ def builder(glst):
         gvd.add_node(node['Child'])
         dg.add_node(node['Parent'])
         gvd.add_node(node['Parent'])
-        dg.add_edge(node['Parent'], node['Child'])
-        gvd.add_edge(node['Parent'], node['Child'])
+        dg.add_edge(node['Parent'], node['Child'], weight=1)
+        gvd.add_edge(node['Parent'], node['Child'], weight=1)
     return dg, gvd
 
 # Input: file
@@ -78,7 +83,7 @@ def builder(glst):
 def observe(filename):
     # Make a folder
     os.makedirs("case")
-    
+
     # Parse the file
     glst = parser(filename)
 
@@ -86,9 +91,36 @@ def observe(filename):
     g, G = builder(glst)
 
     # Visualize Graph
-    G.layout(prog='fdp')
-    G.draw("case/directed_graph.png")
-    
+    #G.layout(prog='fdp')
+    #G.draw("case/directed_graph.png")
+
+    #NEW Graph NOTE the old graphs still exist but are not displayed
+    sG = nx.DiGraph()
+
+    for node in glst:
+        sG.add_edge(node['Parent'], node['Child'], weight=node['Time'])
+
+    #pos = nx.layout.spring_layout(sG)
+    #pos = nx.layout.spectral_layout(sG)
+    #pos = nx.layout.shell_layout(sG)
+    pos = nx.layout.circular_layout(sG)
+    M = sG.number_of_edges()
+    edge_colors = range(2, M + 2)
+    nodes = nx.draw_networkx_nodes(sG, pos, node_size=100, node_color='blue', alpha=.5)
+    edges = nx.draw_networkx_edges(sG, pos, node_size=100, arrowstyle='->', arrowsize=10, edge_color=edge_colors, width=2)
+
+    edge_labels = nx.get_edge_attributes(sG,'weight')
+    nx.draw_networkx_labels(sG, pos, font_size=10)
+    nx.draw_networkx_edge_labels(sG, pos, edge_labels = edge_labels, font_size=5)
+
+    ax = plt.gca()
+    ax.set_axis_off()
+
+    plt.savefig('case/directed_graph.png')
+    #line below for debug
+    #plt.show()
+
+
     # Determine HITs, PageRank, Katz Centrality, Degree Centrality
     with open("case/graph_analysis.csv", "wb") as fh:
         # Write header row
@@ -141,9 +173,9 @@ def observe(filename):
     dc.hist(df.DegreeCentrality)
     dc.set_title("Histogram of Degree Centrality")
     plt.savefig("case/histo_regression_katzcentrality_degcentrality.png")
-    
+
     return g
-    
+
 # Parse the file
 # Input: file
 # Output: A list of dictionaries
@@ -154,8 +186,9 @@ def parser(filename):
         for line in lines:
             line = line.strip()
             evt = line.split("->")
+            tm = evt[1].split("@")
             if len(evt) > 1:
-                dict = {"Parent": evt[0].strip(" "), "Child":evt[1].strip(" ")}
+                dict = {"Parent": evt[0].strip(" "), "Child":tm[0].strip(" "), "Time":tm[1].strip("")}
                 grph.append(dict)
     return grph
 
@@ -170,7 +203,34 @@ def directed(graph_list):
         dg.add_node(item['Parent'])
         dg.add_node(item['Child'])
         dg.add_edge(item['Parent'], item['Child'])
+
+
     return dg
+
+# Input:
+# Output:
+def initPA():
+    print "\n type h for a list of commands"
+    print "\n type q or exit to quit personal assistant"
+    PAComm=True
+    while PAComm:
+        PAComm=raw_input("Please state a command: ")
+        if PAComm == "h":
+            print("""
+            -is [set] in [path/filename]
+                checks if the set [set] is in the observed evidence in the file [path/filename]
+            """)
+        elif PAComm == "q":
+            break
+        elif PAComm == "exit":
+            break
+        else:
+            #print "\nCommand Unknown"
+            parseComm(PAComm)
+
+
+
+
 
 if __name__ == "__main__":
     sciMthd=True
@@ -180,6 +240,7 @@ if __name__ == "__main__":
         2. Formulate Hypotheses
         3. Evaluate Hypotheses
         4. Exit
+        5. Personal Assistant
         """)
         sciMthd=raw_input("Choose a Phase: ")
         if sciMthd == "1":
@@ -195,5 +256,8 @@ if __name__ == "__main__":
         elif sciMthd == "4":
             print "\nExit"
             break
+        elif sciMthd == "5":
+            print "\nPersonal Assistant Selected"
+            initPA()
         else:
             print "\nUnknown Option Selected!"
