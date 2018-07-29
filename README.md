@@ -10,12 +10,12 @@ This is a digital forensic analysis toolkit that relies on graph theory, link an
 
 ### Researchers
 
-[Imani Palmer] (https://imanipalmer.com)
+[Imani Palmer](https://imanipalmer.com)
 
-[Young Li] (https://usipeus.github.io/)
+[Young Li](https://usipeus.github.io/)
 
 ### Developers
 
-[Sarah Moulton] (https://github.com/suspiciousCloud)
+[Sarah Moulton](https://github.com/suspiciousCloud)
 
-[Benjamin Pollak] (https://github.com/BenjaminPollak)
+[Benjamin Pollak](https://github.com/BenjaminPollak)
