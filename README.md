@@ -2,8 +2,12 @@
 
 ## Overview
 
-This is a digital forensic analysis toolkit that relies on graph theory, link analysis, and probabilistic graphical models in order to aid the examiner in digital forensic investigations.
-
+The analysis phase of the digital forensic investigative process is very complex.
+This phase grows more complicated as the size and ubquity of digital devices increases.
+There are many tools aimed at assisting the investigator in the extraction of digital
+evidence; however, very few aimed at analyzing the evidence. sherlock is an open-source
+forensic toolkit for analyzing digital evidence. sherlock enables investigators to
+identify, correlate and reason about evidence.
 
 
 ##  Contributors
