@@ -60,10 +60,9 @@ Enter Filename: ```example.txt```
 
 Output:
 
-```[1. 3. 4]```
-```[0.666666. 0.222222. 0.111111]````
-```This information is important for the determination of likelihood of a hypot\
-hesis. There is more information in the folder data```
+```[1, 3, 4]```
+```[0.666666. 0.222222. 0.111111]```
+```This information is important for the determination of likelihood of a hypothesis. There is more information in the folder data```
 
 1. Observe Evidence
 2. Formulate Hypotheses
@@ -82,13 +81,10 @@ Enter Source Node of your Hypothesis: ```explorer.exe```
 
 Output:
 
-[('explorer.exe', 'AcroRd32.exe'), ('AcroRd32.exe', 'notepad.exe'), ('AcroRd32.\
-exe', '192.168.1.115')]
-[('explorer.exe', 'firefox.exe'), ('firefox.exe', 'Dropbox'), ('firefox.exe', '\
-54.201.155.11'), ('firefox.exe', '23.209.190.51')]
+[('explorer.exe', 'AcroRd32.exe'), ('AcroRd32.exe', 'notepad.exe'), ('AcroRd32.exe', '192.168.1.115')]
+[('explorer.exe', 'firefox.exe'), ('firefox.exe', 'Dropbox'), ('firefox.exe', '54.201.155.11'), ('firefox.exe', '23.209.190.51')]
 
-This is a link of paths in the graph, for example (explorer.exe - AcroRd32.exe \
-- notepad.exe), means GUI opened a PDF document and opened notepad application.
+This is a link of paths in the graph, for example (explorer.exe - AcroRd32.exe - notepad.exe), means GUI opened a PDF document and opened notepad application.
 
 1. Observe Evidence
 2. Formulate Hypotheses
@@ -122,10 +118,8 @@ Done!
 
 Review on the techniques used by this tool:
 
-[Exploring Digital Evidence with Graph Theory](https://commons.erau.edu/cgi/vie\
-wcontent.cgi?article=1374&context=adfsl) <br />
-[Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/defaul\
-t/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf) <br />
+[Exploring Digital Evidence with Graph Theory](https://commons.erau.edu/cgi/viewcontent.cgi?article=1374&context=adfsl) <br />
+[Towards Sound Analysis of Computer Evidence](https://www.nist.gov/sites/default/files/documents/2017/08/23/imanipalmerwednesdayafternoonsession.pdf) <br />
 
 ## Contributors
 
