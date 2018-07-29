@@ -10,7 +10,7 @@ This is a digital forensic analysis toolkit that relies on graph theory, link an
 
 ### Researchers
 
-[Imani Palmer] (imanipalmer.com)
+[Imani Palmer] (https://imanipalmer.com)
 
 [Young Li] (https://usipeus.github.io/)
 
