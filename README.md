@@ -56,22 +56,14 @@ Output:
 
 Enter Filename: ```example.txt```
 
-```Enter example.txt into the prompt, Need to give the full path information f\
-or this prompt```
-
-Output:
-
-Enter Filename: ```example.txt```
-
-``` Enter example.txt into the prompt, Need to give the full path information f\
-or this prompt```
+```Enter example.txt into the prompt, Need to give the full path information for this prompt```
 
 Output:
 
 ```[1. 3. 4]```
 ```[0.666666. 0.222222. 0.111111]````
 ```This information is important for the determination of likelihood of a hypot\
-hesis```
+hesis. There is more information in the folder data```
 
 1. Observe Evidence
 2. Formulate Hypotheses
