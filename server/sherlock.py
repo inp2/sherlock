@@ -4,7 +4,8 @@ from networkx.drawing.nx_pydot import write_dot
 from networkx.drawing.nx_agraph import graphviz_layout
 from collections import Counter # builtin
 from collections import defaultdict # builtin
-
+from datetime import datetime
+import time
 
 import csv # builtin
 import os # builtin
@@ -19,7 +20,7 @@ import pygraphviz as pgv
 import numpy as np
 import pandas as pd
 
-from PAFunc import testworks, parseComm
+from PAFunc import testworks, parseComm, getTimeStr, getDateTimeUnix
 
 
 # Input: Source Node, Target Node, Graph
@@ -80,7 +81,8 @@ def builder(glst):
 #         Degree Centrality, Katz Centrality
 #         TXT File - Data Mining Results
 # Location: case
-def observe(filename):
+def observe(filename, colorApart=-1, accessOrder=-1):
+
     # Make a folder
     os.makedirs("case")
 
@@ -104,14 +106,74 @@ def observe(filename):
     #pos = nx.layout.spectral_layout(sG)
     #pos = nx.layout.shell_layout(sG)
     pos = nx.layout.circular_layout(sG)
-    M = sG.number_of_edges()
-    edge_colors = range(2, M + 2)
     nodes = nx.draw_networkx_nodes(sG, pos, node_size=100, node_color='blue', alpha=.5)
-    edges = nx.draw_networkx_edges(sG, pos, node_size=100, arrowstyle='->', arrowsize=10, edge_color=edge_colors, width=2)
+
+
+
+
+
+    nodeList=sG.nodes()
+    #NOTE this is NOT a node dfs it is an EDGE dfs
+    dfsList=list(nx.edge_dfs(sG,nodeList))
+    accessOrderList = list() #ordered list of nodes by access time
+    accessOrderDict = {} #dict of (node, timeInUnix)
+    i = 0
+    #insert sorted
+    #Can you tell I'm a c programmer?
+    while i < len(dfsList):
+        tNode= dfsList[i]
+        nodeTime=getTimeStr(sG[tNode[0]][tNode[1]])
+        dtUnix=getDateTimeUnix(nodeTime)
+
+        if i == 0:
+            accessOrderList.append(tNode)
+            accessOrderDict[tNode]=dtUnix
+        elif accessOrderDict[accessOrderList[i-1]]<= dtUnix:
+            accessOrderList.append(tNode)
+            accessOrderDict[tNode]=dtUnix
+        else :
+            j=0
+            while j < len(accessOrderList):
+                if accessOrderDict[accessOrderList[j]] > dtUnix:
+                    accessOrderDict[tNode]=dtUnix
+                    accessOrderList.insert(j, tNode)
+                    break
+                j+= 1
+        i+= 1
+
+    #print accessOrderList
+    if accessOrder != -1:
+        for item in accessOrderList:
+            print item[1]
+            print sG[item[0]][item[1]]
+
+    if colorApart != -1:
+        coloredEdges=list();
+        regEdges=list();
+        i = 0
+        while i < len(accessOrderList):
+            if i==0:
+                regEdges.append(accessOrderList[i])
+            elif (getDateTimeUnix(getTimeStr(sG[accessOrderList[i][0]][accessOrderList[i][1]]))- getDateTimeUnix(getTimeStr(sG[accessOrderList[i-1][0]][accessOrderList[i-1][1]])))/60 >= colorApart:
+                coloredEdges.append(accessOrderList[i])
+            else:
+                regEdges.append(accessOrderList[i])
+
+            i+=1
+
+            edge_colors = range(2, len(regEdges) + 2)
+            edgesR = nx.draw_networkx_edges(sG, pos, edgelist=regEdges, node_size=100, arrowstyle='->', arrowsize=10, edge_color=edge_colors, width=2)
+            edgesC = nx.draw_networkx_edges(sG, pos, edgelist=coloredEdges, node_size=100, arrowstyle='->', arrowsize=10, edge_color='r', width=2)
+    else :
+        edge_colors = range(2, len(accessOrderList) + 2)
+        edges = nx.draw_networkx_edges(sG, pos, node_size=100, arrowstyle='->', arrowsize=10, edge_color=edge_colors, width=2)
 
     edge_labels = nx.get_edge_attributes(sG,'weight')
     nx.draw_networkx_labels(sG, pos, font_size=10)
     nx.draw_networkx_edge_labels(sG, pos, edge_labels = edge_labels, font_size=5)
+
+
+
 
     ax = plt.gca()
     ax.set_axis_off()
@@ -216,9 +278,20 @@ def initPA():
     while PAComm:
         PAComm=raw_input("Please state a command: ")
         if PAComm == "h":
+            #print("""
+            #is [set] in [path/filename]
+            #    checks if the set [set] is in the observed evidence in the file [path/filename]
+            #""")
             print("""
-            -is [set] in [path/filename]
-                checks if the set [set] is in the observed evidence in the file [path/filename]
+            1. graph observe [filename]
+                shows directed graph of [filename]
+
+            1.1 graph observe [filename] colorApart [minutes]
+                shows directed graph of [filename] and colors edges that are [minutes] apart from their previous access time.
+
+            1.2 graph observe [filename] accessOrder
+                prints the order in which each element was accessed
+
             """)
         elif PAComm == "q":
             break
@@ -226,7 +299,18 @@ def initPA():
             break
         else:
             #print "\nCommand Unknown"
-            parseComm(PAComm)
+            id=parseComm(PAComm)
+            idComponents = id.split()
+
+            if idComponents[0] == "1":
+                grph = observe(idComponents[1])
+
+            if idComponents[0] == "1.1":
+                grph = observe(idComponents[1], colorApart=int(idComponents[2]))
+
+            if idComponents[0] == "1.2":
+                grph = observe(idComponents[1], accessOrder=1)
+
 
 
 
