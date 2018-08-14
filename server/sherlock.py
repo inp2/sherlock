@@ -58,8 +58,28 @@ def evaluate(src, trg, grph):
 
 # Input: Source Node
 # Output: Edges in depth-first-search
-def formulate(src, grph):
-    print list(nx.dfs_edges(grph, src))
+def formulate(src, grph, graph=-1):
+    formList=list(nx.dfs_edges(grph, src))
+    print formList
+
+    if graph==-1:
+        return
+
+    fG = nx.DiGraph()
+
+    for node in formList:
+        fG.add_edge(node[0], node[1])
+
+    pos = nx.layout.circular_layout(fG)
+    nodes = nx.draw_networkx_nodes(fG, pos, node_size=100, node_color='blue', alpha=.5)
+    edges = nx.draw_networkx_edges(fG, pos, node_size=100, arrowstyle='->', arrowsize=10, width=2)
+
+    ax = plt.gca()
+    ax.set_axis_off()
+
+    #plt.savefig(caseFile+'/formulate_graph.png')
+    #plt.show()
+
 
 # Input: List of Dictionaries
 # Output: Two Directed Graphs
@@ -81,10 +101,23 @@ def builder(glst):
 #         Degree Centrality, Katz Centrality
 #         TXT File - Data Mining Results
 # Location: case
+caseFile=""
 def observe(filename, colorApart=-1, accessOrder=-1):
 
     # Make a folder
-    os.makedirs("case")
+
+    global caseFile
+    caseFile="case"
+    if not os.path.isdir(caseFile):
+        os.makedirs(caseFile)
+    else:
+        i=1
+        while(1==1):
+            if not os.path.isdir(caseFile+str(i)):
+                os.makedirs(caseFile+str(i))
+                caseFile=caseFile+str(i)
+                break
+            i+=1
 
     # Parse the file
     glst = parser(filename)
@@ -178,13 +211,13 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     ax = plt.gca()
     ax.set_axis_off()
 
-    plt.savefig('case/directed_graph.png')
+    plt.savefig(caseFile+'/directed_graph.png')
     #line below for debug
     #plt.show()
 
 
     # Determine HITs, PageRank, Katz Centrality, Degree Centrality
-    with open("case/graph_analysis.csv", "wb") as fh:
+    with open(caseFile+"/graph_analysis.csv", "wb") as fh:
         # Write header row
         writer=csv.writer(fh)
         writer.writerow(["NodeID", "PageRank","Hub", "KatzCentrality", "DegreeCentrality"])
@@ -213,8 +246,8 @@ def observe(filename, colorApart=-1, accessOrder=-1):
             writer.writerow([k1,v1,v2,v3,v4])
 
     # Observe with Data Mining
-    df = pd.read_csv('case/graph_analysis.csv')
-    df.describe().to_csv("case/data_mining.txt")
+    df = pd.read_csv(caseFile+ '/graph_analysis.csv')
+    df.describe().to_csv(caseFile+"/data_mining.txt")
 
     df.columns = ['NodeID', 'PageRank', 'Hub', 'KatzCentrality', 'DegreeCentrality']
 
@@ -225,7 +258,7 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     pr.set_title("Histogram of PageRank")
     hb.hist(df.Hub)
     hb.set_title("Histogram of Hubs")
-    plt.savefig("case/histo_regression_pagerank_hubs.png")
+    plt.savefig(caseFile+"/histo_regression_pagerank_hubs.png")
 
     fig = plt.figure(figsize=(12,6))
     kc = fig.add_subplot(121)
@@ -234,7 +267,7 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     kc.set_title("Histogram of Katz Centrality")
     dc.hist(df.DegreeCentrality)
     dc.set_title("Histogram of Degree Centrality")
-    plt.savefig("case/histo_regression_katzcentrality_degcentrality.png")
+    plt.savefig(caseFile+"/histo_regression_katzcentrality_degcentrality.png")
 
     return g
 
@@ -292,24 +325,40 @@ def initPA():
             1.2 graph observe [filename] accessOrder
                 prints the order in which each element was accessed
 
+            2. graph formulate [source node]
+                graphs the link of paths in the graph from [source node]
+
             """)
         elif PAComm == "q":
             break
         elif PAComm == "exit":
             break
         else:
-            #print "\nCommand Unknown"
+
             id=parseComm(PAComm)
             idComponents = id.split()
 
             if idComponents[0] == "1":
                 grph = observe(idComponents[1])
+                fileName=idComponents[1]
 
-            if idComponents[0] == "1.1":
+            elif idComponents[0] == "1.1":
                 grph = observe(idComponents[1], colorApart=int(idComponents[2]))
+                fileName=idComponents[1]
 
-            if idComponents[0] == "1.2":
+            elif idComponents[0] == "1.2":
                 grph = observe(idComponents[1], accessOrder=1)
+                fileName=idComponents[1]
+
+            elif idComponents[0] == "2":
+                if not 'grph' in locals():
+                    print "plase observe evidence (step 1) first"
+                else:
+                   formulate(idComponents[1], grph, graph=1)
+
+
+            else:
+                print "\nCommand Unknown"
 
 
 
@@ -331,13 +380,21 @@ if __name__ == "__main__":
             filename = raw_input("\nEnter Filename: ")
             grph = observe(filename)
         elif sciMthd == "2":
-            src = raw_input("\nEnter Source Node of your Hypothesis: ")
-            formulate(src, grph)
+            if not 'grph' in globals():
+                print "plase observe evidence (step 1) first"
+            else:
+                src = raw_input("\nEnter Source Node of your Hypothesis: ")
+                formulate(src, grph)
+
         elif sciMthd == "3":
-            src = raw_input("\nEnter Source Node of your Hypothesis: ")
-            trg = raw_input("\nEnter Targe Node of your Hypothesis:\n")
-            evaluate(src, trg, grph)
-        elif sciMthd == "4":
+            if not 'grph' in globals():
+                print "plase observe evidence (step 1) first"
+            else:
+                src = raw_input("\nEnter Source Node of your Hypothesis: ")
+                trg = raw_input("\nEnter Targe Node of your Hypothesis:\n")
+                evaluate(src, trg, grph)
+
+        elif sciMthd == "4" or sciMthd=="q":
             print "\nExit"
             break
         elif sciMthd == "5":

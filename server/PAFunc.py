@@ -23,14 +23,15 @@ def parseComm(PAComm):
         return "-1"
 
 
-    if words[0] and words[1] and words[2]:
+    if len(words) >= 3:
         if words[0]== "graph" and words[1] == "observe":
             if "colorapart" in words:
                     return "1.1 " + words[2] + " " + words[words.index("colorapart")+1]
             if "accessorder" in words:
                 return "1.2 " + words[2]
             return "1 " + words[2]
-
+        if words[0]== "graph" and words[1] == "formulate":
+            return "2 " + words[2]
     return "-1"
 
 #takes dictionary entry of node and returns a string of its time data
