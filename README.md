@@ -11,7 +11,7 @@ identify, correlate and reason about evidence.
 
 ## Installation
 
-Requires Python 3.0
+Requires Python 2.7.14 or above
 
 ### Ubuntu Installation
 
@@ -21,21 +21,65 @@ Requires Python 3.0
 
 ```pip install -r requirements.txt ```
 
-### Mac Installation
+### Mac OS X Installation
 
-Comming Soon
+Install python 2 using the Homebrew package manager (https://brew.sh):
+ ```brew install python2```
+
+ Verify that the python2 alias is the same as the version installed with Homebrew:
+ ```Python2 —version```
+ If not, link them:
+ ```brew unlink python2 && brew link python2```
+
+ Optionally, point the python alias to python2. This method can also be used to easily switch between python 2 and 3 https://stackoverflow.com/a/43354441
+
+Install Graphviz:
+```Brew install Graphviz```
+
+Install Pygraphviz:
+```pip install pygraphviz --install-option="--include-path=/usr/local/include/graphviz/" --install-option="--library-path=/usr/local/lib/graphviz"```
+
+Install pkg-config:
+```pip install pkg-config```
+
+Navigate to sherlock/server and install requirements:
+```pip install -r requirements.txt```
+
 
 ### Windows Installation
 
-Comming Soon
+Download and install python 2.7.14 from https://www.python.org/downloads/release/python-2714/
+
+Follow these instructions to add it to your path and verify installation:
+https://edu.google.com/openonline/course-builder/docs/1.10/set-up-course-builder/check-for-python.html
+
+Follow these instructions to add pip:
+https://dev.to/el_joft/installing-pip-on-windows
+
+Download and install the Microsoft Visual C++ Compiler for Python 2.7 from
+https://www.microsoft.com/en-us/download/details.aspx?id=44266
+
+In a command prompt window, run:
+```pip install scipy ```
+```pip install scikit-learn```
+
+Follow the steps here: https://stackoverflow.com/a/44009261 with the following modifications:
+for step 2: the file you want is pygraphviz‑1.3.1‑cp27‑none‑win32.whl unless you have an amd processor: pygraphviz‑1.3.1‑cp27‑none‑win_amd64.whl
+for step 4: run the command ```pip install pygraphviz-1.3.1-cp27-none-win.whl``` if you do not have an amd processor
+
+Navigate to sherlock/server and install requirements:
+```pip install -r requirements.txt```
+
 
 ### Virtualization of Application
+Coming Soon
 
-Comming Soon
+Coming Soon
 
 ### Web Application
 
-Comming Soon
+Coming Soon
+=======
 
 ## Quick Start
 
