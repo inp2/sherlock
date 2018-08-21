@@ -20,7 +20,7 @@ import pygraphviz as pgv
 import numpy as np
 import pandas as pd
 
-from PAFunc import testworks, parseComm, getTimeStr, getDateTimeUnix
+from PAFunc import testworks, parseComm, getTimeStr, getDateTimeUnix, deleteCaseFiles
 
 
 # Input: Source Node, Target Node, Graph
@@ -59,8 +59,9 @@ def evaluate(src, trg, grph):
 # Input: Source Node
 # Output: Edges in depth-first-search
 def formulate(src, grph, graph=-1):
-    formList=list(nx.dfs_edges(grph, src))
+    formList=list(nx.dfs_edges(sG, src))
     print formList
+
 
     if graph==-1:
         return
@@ -68,17 +69,27 @@ def formulate(src, grph, graph=-1):
     fG = nx.DiGraph()
 
     for node in formList:
-        fG.add_edge(node[0], node[1])
+        fG.add_edge(node[0], node[1], weight=getTimeStr(sG[node[0]][node[1]]))
+
 
     pos = nx.layout.circular_layout(fG)
     nodes = nx.draw_networkx_nodes(fG, pos, node_size=100, node_color='blue', alpha=.5)
     edges = nx.draw_networkx_edges(fG, pos, node_size=100, arrowstyle='->', arrowsize=10, width=2)
+    edge_labels = nx.get_edge_attributes(fG,'weight')
+
+    nx.draw_networkx_labels(fG, pos, font_size=10)
+    nx.draw_networkx_edge_labels(fG, pos, edge_labels = edge_labels, font_size=5)
+
+
 
     ax = plt.gca()
     ax.set_axis_off()
 
-    #plt.savefig(caseFile+'/formulate_graph.png')
+    plt.savefig(caseFile+'/formulate_graph.png')
     #plt.show()
+    plt.clf()
+    plt.close()
+    ax.cla()
 
 
 # Input: List of Dictionaries
@@ -102,11 +113,13 @@ def builder(glst):
 #         TXT File - Data Mining Results
 # Location: case
 caseFile=""
+sG=None
 def observe(filename, colorApart=-1, accessOrder=-1):
 
     # Make a folder
 
     global caseFile
+    global sG
     caseFile="case"
     if not os.path.isdir(caseFile):
         os.makedirs(caseFile)
@@ -130,6 +143,7 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     #G.draw("case/directed_graph.png")
 
     #NEW Graph NOTE the old graphs still exist but are not displayed
+    #NOTE sG is now a global!
     sG = nx.DiGraph()
 
     for node in glst:
@@ -212,6 +226,9 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     ax.set_axis_off()
 
     plt.savefig(caseFile+'/directed_graph.png')
+    plt.clf()
+    plt.close()
+    ax.cla()
     #line below for debug
     #plt.show()
 
@@ -259,6 +276,9 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     hb.hist(df.Hub)
     hb.set_title("Histogram of Hubs")
     plt.savefig(caseFile+"/histo_regression_pagerank_hubs.png")
+    plt.clf()
+    plt.close()
+    ax.cla()
 
     fig = plt.figure(figsize=(12,6))
     kc = fig.add_subplot(121)
@@ -268,6 +288,9 @@ def observe(filename, colorApart=-1, accessOrder=-1):
     dc.hist(df.DegreeCentrality)
     dc.set_title("Histogram of Degree Centrality")
     plt.savefig(caseFile+"/histo_regression_katzcentrality_degcentrality.png")
+    plt.clf()
+    plt.close()
+    ax.cla()
 
     return g
 
@@ -328,6 +351,12 @@ def initPA():
             2. graph formulate [source node]
                 graphs the link of paths in the graph from [source node]
 
+            3. graph evaluate [source node] [target node]
+                evaluates source node and target node
+
+            5. delete all
+                deletes all case files
+
             """)
         elif PAComm == "q":
             break
@@ -355,6 +384,15 @@ def initPA():
                     print "plase observe evidence (step 1) first"
                 else:
                    formulate(idComponents[1], grph, graph=1)
+
+            elif idComponents[0] == "3":
+                if not 'grph' in locals():
+                    print "plase observe evidence (step 1) first"
+                else:
+                   evaluate(idComponents[1], idComponents[2], grph)
+
+            elif idComponents[0] == "5":
+                deleteCaseFiles()
 
 
             else:

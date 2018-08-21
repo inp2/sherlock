@@ -2,7 +2,8 @@
 
 from datetime import datetime
 import time
-
+import os
+import shutil
 
 def testworks():
     print "\n it worked"
@@ -32,6 +33,13 @@ def parseComm(PAComm):
             return "1 " + words[2]
         if words[0]== "graph" and words[1] == "formulate":
             return "2 " + words[2]
+        if words[0]== "graph" and words[1] == "evaluate":
+            return "3 " + words[2] +" "+ words[3]
+
+    elif len(words) ==2:
+        if words[0]== "delete" and words[1] == "all":
+            return "5"
+
     return "-1"
 
 #takes dictionary entry of node and returns a string of its time data
@@ -51,3 +59,10 @@ def getDateTimeUnix(nodeTime):
     dt = datetime.strptime(nodeTime, fmt)
     dtUnix = time.mktime(dt.timetuple())
     return dtUnix
+
+def deleteCaseFiles():
+    dirList= os.listdir(os.getcwd())
+
+    for dir in dirList:
+        if "case" in dir:
+            shutil.rmtree(dir)
