@@ -1,0 +1,157 @@
+#!/usr/bin/python
+from networkx.drawing.nx_pydot import write_dot
+from networkx.drawing.nx_agraph import graphviz_layout
+
+import matplotlib
+matplotlib.use('Agg')
+
+import sys
+import pydot
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pygraphviz as pgv
+import networkx as nx
+import pandas as pd
+
+def main(imagefile):
+            df = []
+            pinode = ""
+            filename = ""
+            partition = ""
+            i_d = ""
+            name_type = ""
+            filesize = ""
+            alloc = ""
+            used = ""
+            inode = ""
+            meta_type = ""
+            mode = ""
+            nlink = ""
+            uid = ""
+            gid = ""
+            mtime = ""
+            atime = ""
+            crtime = ""
+            md5 = ""
+            sha1 = ""
+            with open(imagefile, 'r+') as fh:
+                        for line in fh:
+                                    if "parent_inode" in line:
+                                                pinode = line.split(": ")[1]
+                                    if "filename" in line:
+                                                filename = line.split(": ")[1]
+                                    if "partition" in line:
+                                                partition = line.split(": ")[1]
+                                    if "id" in line:
+                                                i_d = line.split(": ")[1]
+                                    if "name_type" in line:
+                                                name_type = line.split(": ")[1]
+                                    if "filesize" in line:
+                                                filesize = line.split(": ")[1]
+                                    if "alloc" in line:
+                                                alloc = line.split(": ")[1]
+                                    if "used" in line:
+                                                used = line.split(": ")[1]
+                                    if "inode" in line:
+                                                inode = line.split(": ")[1]
+                                    if "meta_type" in line:
+                                                meta_type = line.split(": ")[1]
+                                    if "mode" in line:
+                                                mode = line.split(": ")[1]
+                                    if "nlink" in line:
+                                                nlink = line.split(": ")[1]
+                                    if "uid" in line:
+                                                uid = line.split(": ")[1]
+                                    if "gid" in line:
+                                                gid = line.split(": ")[1]
+                                    if "mtime" in line:
+                                                mtime = line.split(": ")[1]
+                                    if "atime" in line:
+                                                atime = line.split(": ")[1]
+                                    if "crtime" in line:
+                                                crtime = line.split(": ")[1]
+                                    if "md5" in line:
+                                                md5 = line.split(": ")[1]
+                                    if "sha1" in line:
+                                                sh1 = line.split(": ")[1]
+                                    if not line.strip():
+                                                df.append({"Parent Inode":pinode, "Filename":filename, "Id":i_d, "Name Type":name_type, "Filesize":filesize, "Alloc":alloc, "Used":used, "Inode":inode, "Metatype":meta_type, "Mode":mode, "Nlink":nlink, "Uid":uid, "Gid":gid, "Mtime":mtime, "Atime":atime, "Crtime":crtime, "Md5":md5, "Sha1":sha1})
+                                                pinode = ""
+                                                filename = ""
+                                                partition = ""
+                                                i_d = ""
+                                                name_type = ""
+                                                filesize = ""
+                                                alloc = ""
+                                                used = ""
+                                                inode = ""
+                                                meta_type = ""
+                                                mode = ""
+                                                nlink = ""
+                                                uid = ""
+                                                gid = ""
+                                                mtime = ""
+                                                atime = ""
+                                                crtime = ""
+                                                md5 = ""
+                                                sha1 = ""
+                        return df
+
+
+def graph_analysis(forensic_df):
+            G = pgv.AGraph(directed=True)
+            for index, row in forensic_df.iterrows():
+                        if row['Parent Inode'] and row['Inode']:
+                                    # Try to find parent inode filename
+                                    for index2, row2 in forensic_df.iterrows():
+                                                if row['Parent Inode'] == row2['Inode']:
+                                                            G.add_edge(str(row2['Filename']), str(row['Filename']))
+                                                else:
+                                                            G.add_edge(str(row['Parent Inode']), str(row['Filename']))
+                        elif row['Parent Inode']:
+                                    G.add_node(str(row['Parent Inode']))
+                        elif row['Inode']:
+                                    G.add_node(str(row['Filename']))
+            G.layout(prog='fdp')
+            G.draw("directed_graph.png")
+
+def time_analysis(forensic_df):
+            x = forensic_df['Mtime']
+            y = forensic_df['Filename']
+
+            levels = np.array([-5, 5, -3, 3, -1, 1])
+            fig, ax = plt.subplots(figsize=(8,5))
+            
+            # Create the base
+            start = min(x)
+            stop = max(x)
+            ax.plot((start, stop), (0,0), 'k', alpha=.5)
+
+            # Iterate through releases annotating each one
+            for ii, (iname, idate) in enumerate(zip(y,x)):
+                        level = levels[ii % 6]
+                        vert = 'top' if level < 0 else 'bottom'
+
+                        ax.scatter(idate, 0, s=100, facecolor='w', edgecolor='k', zorder=9999)
+                        # Plot a line up to the text
+                        ax.plot((idate, idate), (0, level), c='r', alpha=.7)
+                        # Give the text a faint background and aligh it properly
+                        ax.text(idate, level, iname,
+                                horizontalalignment='right', verticalalignment=vert, fontsize=14)
+            ax.set(title="Modified Time")
+            # Set the xticks formatting
+            
+            # Remove components for a cleaner look
+            plt.setp((ax.get_yticklabels() + ax.get_yticklines() + list(ax.spines.values())), visible=False)
+
+            plt.savefig('mtime_timeline.png')
+
+def hist_analysis(forensic_df):
+            df['Filesize'].hist()
+
+if __name__ == "__main__":
+            df = main(sys.argv[1])
+            forensic_df = pd.DataFrame(df)
+            graph_analysis(forensic_df)
+            time_analysis(forensic_df)
