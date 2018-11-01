@@ -1,0 +1,6 @@
+# Analysis & Correlation of IoT Devices
+
+### bro_log_cluster_analysis.py
+Input: conn.log
+Output: cluster_file.txt, cluster.png
+
