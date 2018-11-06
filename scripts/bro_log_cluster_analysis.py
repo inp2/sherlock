@@ -24,9 +24,7 @@ from bat import dataframe_to_matrix
 # Pass in bro log
 df = log_to_dataframe.LogToDataFrame(sys.argv[1])
 
-print(df.astype())
-#df.replace('1c:af:05:9e:19:74', 'Betty Smartphone')
-'''features = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'orig_pkts', 'resp_pkts']
+features = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'uri', 'request_body_len', 'response_body_len']
 bro_df = df[features]
 # Use the bat DataframeToMatrix class (handles categorical data)
 # You can see below it uses a heuristic to detect category data. When doing
@@ -56,12 +54,12 @@ plt.savefig('cluster.png')
 
 # Now print out the details for each cluster
 pd.set_option('display.width', 1000)
-show_fields = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'orig_pkts', 'resp_pkts']
+show_fields = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'uri', 'request_body_len', 'response_body_len']
 with open("cluster_file.txt", "w") as fh:
     for key, group in cluster_groups:
         fh.write('\nCluster {:d}: {:d} observations'.format(key, len(group)))
         fh.write(str(group[show_fields].head()))
 
-df['uid'].resample('1S').count().plot()
+'''df['uid'].resample('1S').count().plot()
 plt.xlabel('Connections Per Second')
 plt.savefig('time_series_conns_per_sec.png')'''

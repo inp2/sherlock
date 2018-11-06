@@ -47,58 +47,7 @@ dflst.append(d)
 
 df = pd.DataFrame(dflst)
 
-# wordcloud = WordCloud().generate(' '.join(df['text'].tolist()))
-# plt.savefig('wordcloud.png')
-
-names = df['author_name'].tolist()
-dates = [datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in df['timestamp']]
-
-levels = np.array([-10, 10, -9, 9, -8, 8, -6, 6, -4, 4, -2, 2])
-fig, ax = plt.subplots()
-
-# Create the base line
-start = min(dates)
-stop = max(dates)
-ax.plot((start, stop), (0, 0), 'k', alpha=.5)
-
-# Iterate through releases annotating each one
-for ii, (iname, idate) in enumerate(zip(names, dates)):
-    level = levels[ii % 10]
-    vert = 'top' if level < 0 else 'bottom'
-    ax.scatter(idate, 0, s=100, facecolor='w', edgecolor='k', zorder=9999)
-    # Plot a line up to the text
-    ax.plot((idate, idate), (0, level), c='r', alpha=.7)
-    # Give the text a faint background and align it properly
-    ax.text(idate, level, iname, horizontalalignment='right', verticalalignment=vert, fontsize=8, backgroundcolor=(1., 1., 1., .3))
-
-ax.set(title="Google Chat Time Analysis")
-# Set the xticks formatting
-# format xaxis with 3 month intervals
-ax.get_xaxis().set_major_locator(mdates.MonthLocator(interval=3))
-ax.get_xaxis().set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
-fig.autofmt_xdate()
-
-# Remove components for a cleaner look
-plt.setp((ax.get_yticklabels() + ax.get_yticklines() +
-                    list(ax.spines.values())), visible=False)
-plt.savefig('chat_timeline.png')
-
-# tdm = textmining.TermDocumentMatrix()
-word = ''
-# john = '' 
-for index, row in df.iterrows():
-        word += str(row['text']) + " "
-   
-# tdm.add_doc(betty)
-# tdm.add_doc(john)
-numLen = len(word.split(" "))
-
-# ax = sns.heatmap(tdm)
-
-
 df['text_length'] = df['text'].apply(len)
-
-
 
 x=[datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in df['timestamp']]
 y=df['text_length']
