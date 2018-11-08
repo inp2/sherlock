@@ -24,7 +24,12 @@ from bat import dataframe_to_matrix
 # Pass in bro log
 df = log_to_dataframe.LogToDataFrame(sys.argv[1])
 
-features = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'uri', 'request_body_len', 'response_body_len']
+df[['request_body_len', 'response_body_len']].hist()
+plt.savefig('http_net.png')
+
+plt.gcf().clear()
+
+features = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'orig_pkts', 'resp_pkts']
 bro_df = df[features]
 # Use the bat DataframeToMatrix class (handles categorical data)
 # You can see below it uses a heuristic to detect category data. When doing
@@ -54,7 +59,7 @@ plt.savefig('cluster.png')
 
 # Now print out the details for each cluster
 pd.set_option('display.width', 1000)
-show_fields = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'uri', 'request_body_len', 'response_body_len']
+show_fields = ['id.orig_h', 'id.orig_p', 'id.resp_h', 'id.resp_p', 'orig_pkts', 'resp_pkts']
 with open("cluster_file.txt", "w") as fh:
     for key, group in cluster_groups:
         fh.write('\nCluster {:d}: {:d} observations'.format(key, len(group)))

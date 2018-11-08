@@ -49,7 +49,19 @@ df = pd.DataFrame(dflst)
 
 df['text_length'] = df['text'].apply(len)
 
-x=[datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in df['timestamp']]
-y=df['text_length']
+for 
+# Create the base line
+start = min(dates)
+stop = max(dates)
+ax.plot((start, stop), (0, 0), 'k', alpha=.5)
+
+names = df['author_name'].tolist()
+dates = [datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in df['timestamp']]
+
+# Iterate through releases annotating each one
+for ii, (iname, idate) in enumerate(zip(names, dates)):
+    
+
+
 plt.scatter(x,y)
 plt.savefig('chat_scatter.png')

@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+from collections import Counter, defaultdict, OrderedDict
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np
@@ -16,9 +17,9 @@ from wordcloud import WordCloud
 dflst = []
 
 # Create DF sentiment analysis
-d = {'author_chat_id':'108778762612058411235', 'author_name':'John Macron', 'timestamp':'2017-07-17 13:39:08', 'text':';)'}         
+d = {'uid': '1', 'author_chat_id':'108778762612058411235', 'author_name':'John Macron', 'timestamp':'2017-07-17 13:39:08', 'text':';)'}         
 dflst.append(d)
-d = {'author_chat_id':'108778762612058411235', 'author_name':'John Macron', 'timestamp':'2017-07-17 13:41:54', 'text':'How are you?'}
+d = {'uid': '2', 'author_chat_id':'108778762612058411235', 'author_name':'John Macron', 'timestamp':'2017-07-17 13:41:54', 'text':'How are you?'}
 dflst.append(d)
 d = {'author_chat_id':'112549252980293459976', 'author_name':'Hallym Betty', 'timestamp':'2017-07-17 13:43:21', 'text':'Hey. Better now ;)'}         
 dflst.append(d)
@@ -46,9 +47,6 @@ d = {'author_chat_id':'108778762612058411235', 'author_name':'John Macron', 'tim
 dflst.append(d)
 
 df = pd.DataFrame(dflst)
-
-# wordcloud = WordCloud().generate(' '.join(df['text'].tolist()))
-# plt.savefig('wordcloud.png')
 
 names = df['author_name'].tolist()
 dates = [datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in df['timestamp']]
@@ -83,24 +81,24 @@ plt.setp((ax.get_yticklabels() + ax.get_yticklines() +
                     list(ax.spines.values())), visible=False)
 plt.savefig('chat_timeline.png')
 
-# tdm = textmining.TermDocumentMatrix()
-word = ''
-# john = '' 
-for index, row in df.iterrows():
-        word += str(row['text']) + " "
-   
-# tdm.add_doc(betty)
-# tdm.add_doc(john)
-numLen = len(word.split(" "))
+plt.gcf().clear()
 
-# ax = sns.heatmap(tdm)
+labels = []
+for i, dfi in enumerate(df.groupby(["author_name"])):
+    labels.append(dfi[0])
+    plt.bar(i, dfi[1].count(), label=dfi[0])
+plt.xticks(range(len(labels)), labels)
+plt.xlabel("Author of Texts")
+plt.ylabel("Number of Texts")
+plt.title("The Number of Texts Per Author")
+plt.legend()
+plt.savefig("gchat_counts.png")
 
+plt.gcf().clear()
 
-df['text_length'] = df['text'].apply(len)
-
-
-
-x=[datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in df['timestamp']]
-y=df['text_length']
-plt.scatter(x,y)
-plt.savefig('chat_scatter.png')
+df['ts'] = pd.to_datetime(df['timestamp'])
+df = df.set_index(pd.DatetimeIndex(df['ts']))
+df.drop('timestamp', 1)
+df['uid'].resample('1S').count().plot()
+#plt.xlabel('Number of Messages Per Second')
+#plt.savefig('gchat_msg_sec.png')

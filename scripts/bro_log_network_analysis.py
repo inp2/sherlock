@@ -33,5 +33,17 @@ for index, row in bro_df.iterrows():
     G.add_edge(row[0], row[0])
 
 pos = graphviz_layout(G, prog='dot')
-nx.draw(G, pos, with_labels=False, node_size=100, node_color='w')
+nx.draw(G, pos, with_labels=False)
 plt.savefig('directed_networkx_graph.png')
+
+plt.gcf().clear()
+
+pr = nx.pagerank(G)
+plt.hist(pr.values())
+plt.title("PageRank Values of HTTP Connections")
+plt.xlabel("PageRank Value")
+plt.savefig("pagerank.png")
+# print(pr)
+
+plt.gcf().clear()
+ax = bro_df['id.orig_h'].resample('1S').count().plot()
