@@ -14,7 +14,7 @@ import matplotlib.dates as mdates
 from datetime import datetime
 from wordcloud import WordCloud
 
-names = ['Simon', 'Simon’, Kore App', 'dp-535302W5', 'Simon', 'Simon', 'dp-535302W5', 'Unknown', 'Unknown', 'dp-535302W5', 'dp-535302W5', 'Kore App', 'Simon', 'Betty', 'Simon', 'Betty', 'Kore App', 'Unknown', 'Unknown', 'Simon', 'Kore App', 'Betty', '2016d800001f']
+names = ['Simon', 'Simon', 'Kore', 'dp', 'Simon', 'Simon', 'dp', 'Unknown', 'Unknown', 'dp', 'dp', 'Kore', 'Simon', 'Betty', 'Simon', 'Betty', 'Kore', 'Unknown', 'Unknown', 'Simon', 'Kore', 'Betty', 'Examiner']
 dates = ['2017-07-16 17:14:43', '2017-07-16 17:14:43', '2017-07-16 17:18:49', '2017-07-16 17:57:44', '2017-07-16 19:59:12', '2017-07-16 19:59:12', '2017-07-16 20:11:46', '2017-07-17 13:41:26', '2017-07-17 13:44:48', '2017-07-17 14:13:37','2017-07-17 14:16:13', '2017-07-17 14:18:44', '2017-07-17 14:21:48', '2017-07-17 14:22:12', '2017-07-17 15:00:45', '2017-07-17 15:00:46', '2017-07-17 15:02:05', '2017-07-17 15:11:55','2017-07-17 15:15:21', '2017-07-17 15:20:50', '2017-07-17 15:25:21', '2017-07-17 16:21:35', '2017-07-17 16:27:57']
 
 dates = [datetime.strptime(ii, "%Y-%m-%d %H:%M:%S") for ii in dates]
@@ -48,3 +48,16 @@ fig.autofmt_xdate()
 plt.setp((ax.get_yticklabels() + ax.get_yticklines() +
                     list(ax.spines.values())), visible=False)
 plt.savefig('timeline.png')
+
+
+plt.gcf().clear()
+
+z = Counter(names)
+labels = z.keys()
+plt.bar(range(len(z)), list(z.values()))
+plt.xticks(range(len(labels)), labels, rotation='vertical')
+plt.xlabel("Device Name")
+plt.ylabel("Number of Connections")
+plt.title("The Number of Connections Per Device")
+plt.legend()
+plt.savefig("device_counts.png")
